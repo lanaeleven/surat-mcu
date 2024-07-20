@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SuratController;
+use App\Http\Controllers\PasienController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,16 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', function () {
-    return view('home');
+Route::get('/t', function () {
+    return view('template.vaksinasi');
 });
+Route::get('/test', [SuratController::class, 'test']);
+
+Route::get('/', [PasienController::class, 'create']);
+Route::get('/tambah-pasien', [PasienController::class, 'tambahPasien']);
+Route::get('/edit/{pasien}', [PasienController::class, 'edit']);
+Route::get('/buat-surat/{pasien}', [PasienController::class, 'buatSurat']);
+Route::get('/buat-surat/{pasien}/audiometri', [SuratController::class, 'dataAudiometri']);
+Route::get('/cetak-data/{audiometri}', [SuratController::class, 'cetakData']);
+Route::post('/tambah-pasien', [PasienController::class, 'store']);
+Route::post('/generate/audiometri', [SuratController::class, 'audiometri']);

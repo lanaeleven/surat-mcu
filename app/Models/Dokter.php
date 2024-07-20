@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Pasien extends Model
+class Dokter extends Model
 {
     use HasFactory;
-    protected $table = 'pasien';
+    protected $table = 'dokter';
     protected $guarded = ['id'];
 
     // public function audiometri(): HasOne {
-    //     return $this->hasOne(Audiometri::class, 'idPasien');
+    //     return $this->hasOne(Audiometri::class, 'idDokter');
     // }
 
     public function audiometri(): HasMany {
-        return $this->hasMany(Audiometri::class, 'idPasien');
+        return $this->hasMany(Audiometri::class, 'idDokter');
     }
 }
