@@ -5,12 +5,13 @@
     </div>
     <div class="max-w-4xl mx-auto my-6">
         <div class="flex justify-start">
-            <x-yellow-link-button href='/'>Kembali</x-yellow-link-button>
+            <x-yellow-link-button href="{{ route('pasien.index') }}">Kembali</x-yellow-link-button>
         </div>
         <form method="post" action="/edit-pasien">
             @csrf
             <div class="space-y-12">
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">  
+                    <input type="hidden" name="id" value="{{ $pasien->id }}">
                     <x-text-input name="nama" id="nama" :required="true" :value="$pasien->nama">Nama Lengkap</x-text-input>
                     <x-text-input name="noRM" id="noRM" :required="true" :value="$pasien->noRM">Nomor Rekam Medis</x-text-input>
                     @php

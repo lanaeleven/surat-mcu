@@ -2,7 +2,7 @@
     @foreach ($row as $index => $cell)
         @if ($loop->last)
             <td class="px-6 py-4 text-right min-w-[200px]">
-                <x-yellow-link-button href='/edit/{{ $row[0] }}'>Edit</x-yellow-link-button>
+                <x-yellow-link-button href="{{ route('pasien.edit', ['pasien' => ]) }}">Edit</x-yellow-link-button>
                 <x-blue-link-button href='/buat-surat/{{ $row[0] }}'>Buat Surat</x-blue-link-button>
             </td>
         @else

@@ -9,13 +9,16 @@ use Illuminate\Http\RedirectResponse;
 
 class PasienController extends Controller
 {
-    public function create() {
-        $pasiens = Pasien::orderBy('id', 'desc')->paginate(15);
-        return view('home', ['pasiens' => $pasiens, 'title' => 'DATA PASIEN']);
+    public function index() {
+        $title = 'DATA PASIEN';
+        $pasien = Pasien::orderBy('id', 'desc')->paginate(15);
+        return view('pasien.index', compact('title', 'pasien'));
     }
 
-    public function tambahPasien() {
-        return view('tambah-pasien', ['title' => 'TAMBAH PASIEN']);
+    public function create() {
+        $title ='TAMBAH PASIEN';
+        $readonly = false;
+        return view('pasien.form', compact('title', 'readonly'));
     }
 
     public function store(Request $request): RedirectResponse {
@@ -27,23 +30,36 @@ class PasienController extends Controller
             'tanggalLahir' => 'required',
             'alamat' => 'required'
         ]);
-
         Pasien::create($validatedData);
-
-        return redirect('/')
-            ->with('success', "Data Pasien Berhasil Ditambahkan");
+        return redirect()->route('pasien.index')->with('success', "Data Pasien Berhasil Ditambahkan");
     }
 
     public function edit(Pasien $pasien) {
-        return view('edit-pasien', ['pasien' => $pasien, 'title' => 'EDIT PASIEN']);
+        $title = 'EDIT PASIEN';
+        $readonly = false;
+        return view('pasien.form', compact('title','pasien', 'readonly'));
     }
 
-    public function buatSurat(Pasien $pasien) {
-        return view('buat-surat', ['pasien' => $pasien, 'title' => 'BUAT SURAT']);
+    public function update(Request $request, Pasien $pasien): RedirectResponse {
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'noRM' => 'required',
+            'jenisKelamin' => 'required',
+            'tempatLahir' => 'required',
+            'tanggalLahir' => 'required',
+            'alamat' => 'required'
+        ]);
+        $pasien->update($validatedData);
+        return redirect()->route('pasien.index')->with('success', "Data Pasien Berhasil Disimpan");
     }
 
     public function audiometri_(Pasien $pasien) {
         $dokter = Dokter::all();
         return view('audiometri', ['pasien' => $pasien, 'title' => 'Hasil Pemeriksaan Audiometri', 'dokter' => $dokter]);
+    }
+
+    public function indexSurat(Pasien $pasien) {
+        $title = 'BUAT SURAT';
+        return view('surat-index', compact('title', 'pasien'));
     }
 }

@@ -19,7 +19,7 @@
 
 <div class="grid grid-cols-5 gap-4 mb-6">
     <div>
-        <x-card href="/buat-surat/{{ $pasien->id }}/audiometri">Pemeriksaan Audiometri</x-card>
+        <x-card href="{{ route('audiometri.index', ['pasien' => $pasien->id]) }}">Pemeriksaan Audiometri</x-card>
     </div>
     <div>
     </div>

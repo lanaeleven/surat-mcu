@@ -3,7 +3,7 @@
         <thead class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 @foreach ($headers as $header)
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3">
                     {{ $header }}
                 </th>                    
                 @endforeach
