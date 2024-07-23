@@ -6,9 +6,9 @@
   <title>{{ $title }}</title>
   @vite('resources/css/app.css')
 </head>
-<body>
+<body class="bg-[#e0e4ee]">
   <x-navbar>SURAT MCU</x-navbar>
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-4">
 
   @yield('container')
 

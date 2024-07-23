@@ -12,6 +12,7 @@ class Card extends Component
      * Create a new component instance.
      */
     public function __construct(
+        public string $gambar,
         public string $href
     )
     {

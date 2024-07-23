@@ -22,7 +22,7 @@ use App\Http\Controllers\AudiometriController;
 Route::get('/t', function () {
     return view('template.vaksinasi');
 });
-Route::get('/test', [SuratController::class, 'test']);
+// Route::get('/test', [SuratController::class, 'test']);
 
 Route::get('/', [PasienController::class, 'index'])->name('pasien.index');
 Route::get('/pasien/create', [PasienController::class, 'create'])->name('pasien.create');

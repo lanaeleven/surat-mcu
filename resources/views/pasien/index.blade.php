@@ -4,17 +4,17 @@
 <x-alert-dismiss>{{ session('success') }}</x-alert-dismiss>
 @endif
 
-<div>
-<div class="grid grid-cols-3 align-middle mb-6">
-  <div></div>
-  <div class="text-center">
-    <x-page-header>{{ $title }}</x-page-header>
-  </div>
-  <div class="text-end">
-    <x-green-link-button href="{{ route('pasien.create') }}">Tambah pasien</x-green-link-button>
-  </div>
+<div class="flex bg-white p-5 items-center rounded-lg mb-5">
+  <div class="flex-none w-24"></div>
+  <div class="flex-auto"><x-page-header>{{ $title }}</x-page-header></div>
 </div>
-  <div>
+
+<div class="flex-row bg-white p-5 rounded-lg">
+  <div class="flex justify-end">
+    <div><x-green-link-button href="{{ route('pasien.create') }}">Tambah pasien</x-green-link-button></div>
+  </div>
+  
+  <div class="mt-5">
   <x-table :headers="['ID', 'Nama', 'No RM', 'Jenis Kelamin', 'TTL', 'Alamat', 'Aksi']">
     {{-- @foreach ($pasien as $p)
         <x-table-row :row="[$p->id, $p->nama, $p->noRM, $p->jenisKelamin, $p->tempatLahir, $p->tanggalLahir, $p->alamat, '']"
@@ -40,7 +40,7 @@
       <td class="px-6 py-4">
         {{ $p->alamat }}
       </td>
-      <td class="px-6 py-4 min-w-[200px]">
+      <td class="px-6 py-4 min-w-[220px]">
         <x-yellow-link-button href="{{ route('pasien.edit', ['pasien' => $p->id]) }}">Edit</x-yellow-link-button>
         <x-blue-link-button href="{{ route('surat.index', ['pasien' => $p->id]) }}">Buat Surat</x-blue-link-button>
       </td>        
@@ -54,5 +54,7 @@
     {{ $pasien->appends(request()->input())->links() }}
   </div>
 </div>
+</div>
+
     
 @endsection
