@@ -20,4 +20,8 @@ class Pasien extends Model
     public function audiometri(): HasMany {
         return $this->hasMany(Audiometri::class, 'idPasien');
     }
+
+    public function spirometri(): HasMany {
+        return $this->hasMany(Spirometri::class, 'idPasien');
+    }
 }

@@ -16,6 +16,9 @@
         <div>
             <x-card-surat gambar='/images/audiometri.png' href="{{ route('audiometri.index', ['pasien' => $pasien->id]) }}">Pemeriksaan Audiometri</x-card-surat>
         </div>
+        <div>
+            <x-card-surat gambar='/images/spirometri.png' href="{{ route('spirometri.index', ['pasien' => $pasien->id]) }}">Pemeriksaan Spirometri</x-card-surat>
+        </div>
     </div>
 </div>
 

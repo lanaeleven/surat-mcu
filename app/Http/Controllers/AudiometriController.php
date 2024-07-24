@@ -69,6 +69,14 @@ class AudiometriController extends Controller
         return redirect()->route('audiometri.show', ['audiometri' => $audiometri->id])->with('success', "Data Pasien Berhasil Diupdate");
     }
 
+    public function destroy($id) {
+        $audiometri = Audiometri::findOrFail($id);
+        $idPasien = $audiometri->idPasien;
+        $audiometri->delete();
+
+        return redirect()->route('audiometri.index', ['pasien' => $idPasien])->with('success', "Data Pasien Berhasil Dihapus");
+    }
+
     public function generate(Audiometri $audiometri) {
         $pasien = Pasien::find($audiometri->idPasien);
         $dokter = Dokter::find($audiometri->idDokter);  

@@ -37,13 +37,18 @@
         <td class="px-6 py-4 min-w-[200px]">
           @php
               if ($jenisPemeriksaan == 'audiometri') {
-                $route = route('audiometri.show', ['audiometri' => $dp->id]);
+                $routeCetak = route('audiometri.show', ['audiometri' => $dp->id]);
+                $routeHapus = route('audiometri.destroy', ['id' => $dp->id]);
               } else {
                 $route = '';
               }
           @endphp
-          <x-blue-link-button href="{{ $route }}">Cetak Data</x-blue-link-button>
-          {{-- <x-yellow-link-button href='/hapus/{{ $dp->id }}'>Hapus Data</x-yellow-link-button> --}}
+          <form action="{{ $routeHapus }}" method="POST">
+            @csrf
+            @method('DELETE')
+          <x-blue-link-button href="{{ $routeCetak }}">Cetak Data</x-blue-link-button>
+            <x-red-submit-button href="{{ $routeHapus }}" konfirmasi='Apakah Anda yakin ingin menghapus data ini?' >Hapus data</x-red-submit-button>
+          </form>
       </td>
       </tr>
       @endforeach

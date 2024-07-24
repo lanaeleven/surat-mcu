@@ -17,20 +17,20 @@
             <div class="space-y-12">
                 <div class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4">  
                     <div>
-                        <x-text-input name="nama" id="nama" value="{{ old('nama', $pasien->nama ?? '') }}" :required="true">Nama Lengkap</x-text-input>
+                        <x-text-input name="nama" id="nama" value="{{ old('nama', $pasien->nama ?? '') }}" :required="true" :readonly="$readonly">Nama Lengkap</x-text-input>
                         @error('nama')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div>
-                        <x-text-input name="noRM" id="noRM" value="{{ old('noRM', $pasien->noRM ?? '') }}" :required="true">Nomor Rekam Medis</x-text-input>
+                        <x-text-input name="noRM" id="noRM" value="{{ old('noRM', $pasien->noRM ?? '') }}" :required="true" :readonly="$readonly">Nomor Rekam Medis</x-text-input>
                         @error('noRM')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     
                     <div>
-                        <x-text-input name="tempatLahir" id="tempatLahir" value="{{ old('tempatLahir', $pasien->tempatLahir ?? '') }}" :required="true">Tempat Lahir</x-text-input>
+                        <x-text-input name="tempatLahir" id="tempatLahir" value="{{ old('tempatLahir', $pasien->tempatLahir ?? '') }}" :required="true" :readonly="$readonly">Tempat Lahir</x-text-input>
                         @error('tempatLahir')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
