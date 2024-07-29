@@ -19,6 +19,11 @@
     <div><x-green-link-button href="{{ route('pasien.create') }}">Tambah pasien</x-green-link-button></div>
   </div>
   
+  @if ($pasien->isEmpty())
+    <h3 class="text-center text-xl">Belum ada data pasien</h3>
+  @else
+      
+
   <div class="mt-5">
   <x-table :headers="['ID', 'Nama', 'No RM', 'Jenis Kelamin', 'TTL', 'Alamat', 'Aksi']">
     {{-- @foreach ($pasien as $p)
@@ -59,6 +64,9 @@
     {{ $pasien->appends(request()->input())->links() }}
   </div>
 </div>
+
+@endif
+
 </div>
 
     

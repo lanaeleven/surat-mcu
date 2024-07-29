@@ -21,7 +21,7 @@ class PasienFactory extends Factory
             'noRM' => fake()->randomNumber(7, false),
             'jenisKelamin' => fake()->randomElement(['Laki-Laki', 'Perempuan']),
             'tempatLahir' => fake()->city(),
-            'tanggalLahir' => fake()->dateTimeThisYear(),
+            'tanggalLahir' => fake()->date(),
             'alamat' => fake()->address(),
         ];
     }

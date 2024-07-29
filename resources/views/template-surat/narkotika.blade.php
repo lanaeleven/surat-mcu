@@ -64,10 +64,12 @@
 
             .table-container-atas td:nth-child(1) {
                 text-align: left;
+                width: 150px;
             }
 
             .table-container-atas td:nth-child(2) {
                 text-align: center;
+                width: 2px;
             }
 
             .table-container-atas td:nth-child(3) {
@@ -80,8 +82,28 @@
             }
 
             .table-container-garis-tengah td {
-                width: 25%;
+                vertical-align: top;
                 padding: 4px;
+            }
+
+            .table-container-garis-tengah td:nth-child(1) {
+                text-align: left;
+                width: 4%;
+            }
+            
+            .table-container-garis-tengah td:nth-child(2) {
+                text-align: left;
+                width: 32%;
+            }
+
+            .table-container-garis-tengah td:nth-child(3) {
+                text-align: left;
+                width: 32%;
+            }
+
+            .table-container-garis-tengah td:nth-child(4) {
+                text-align: left;
+                width: 32%;
             }
 
             .table-kategori {
@@ -160,14 +182,14 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                <td>JRG/234/RNYN/4566</td>
-                <td style="text-align: right;">Banjarbaru, 5 Rabiul Awal 1446 H</td>
+                <td>{{ $narkotika->noSurat }}</td>
+                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
             </tr>
             <tr>
                 <td>Lampiran</td>
                 <td>:</td>
                 <td>1 Bendel</td>
-                <td style="text-align: right;">20 Juli 2024 M</td>
+                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
             </tr>
             <tr>
                 <td>Hal</td>
@@ -181,39 +203,44 @@
             <p>Diterangkan bersama ini bahwa:</p>
             <table class="table-container-atas">
                 <tr>
-                    <td>No. Rekam Medis</td>
-                    <td>:</td>
-                    <td>1460467</td>
-                </tr>
-                <tr>
-                    <td>Tanggal Pemeriksaan</td>
-                    <td>:</td>
-                    <td>2 Juli 2024</td>
-                </tr>
-                <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>Michelle</td>
+                    <td>{{ $pasien->nama }}</td>
                 </tr>
                 <tr>
-                    <td>Umur Pasien</td>
+                    <td>Tanggal Lahir</td>
                     <td>:</td>
-                    <td>23 Tahun</td>
+                    <td>{{ $tanggalLahir }}</td>
+                </tr>
+                <tr>
+                    <td>Usia</td>
+                    <td>:</td>
+                    <td>{{ $umur }} tahun</td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
                     <td>:</td>
-                    <td>Perempuan</td>
+                    <td>{{ $pasien->jenisKelamin }}</td>
+                </tr>
+                <tr>
+                    <td>Pekerjaan</td>
+                    <td>:</td>
+                    <td>{{ $narkotika->pekerjaanPasien }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>Jalan A Yani jm.17,14</td>
+                    <td>{{ $pasien->alamat }}</td>
                 </tr>
                 <tr>
-                    <td>Diagnosa Awal/Klinis</td>
+                    <td>Tanggal Pemeriksaan</td>
                     <td>:</td>
-                    <td>Paru-paru smile</td>
+                    <td>{{ $tanggalPemeriksaan }}</td>
+                </tr>
+                <tr>
+                    <td>Nomor RM</td>
+                    <td>:</td>
+                    <td>{{ $pasien->noRM }}</td>
                 </tr>
             </table>
 
@@ -223,7 +250,7 @@
             <table class="table-container-garis-tengah">
         <tr>
             <td><b>1.</b></td>
-            <td colspan="3">Wawancara klinis menggunakan <b>DAST-10 / ASSIST</b> dengan hasil: -- HASIL WAWANCARA --</td>
+            <td colspan="3">Wawancara klinis menggunakan <b>DAST-10 / ASSIST</b> dengan hasil: {{ $narkotika->hslWawancara }}</td>
         </tr>
         <tr>
             <td><b>2.</b></td>
@@ -236,32 +263,48 @@
             <td>Morphin :</td>
         </tr>
         <tr>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">Positif / Negatif</td>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">Positif / Negatif</td>
-            <td style="border-bottom: 1px solid #000;">Positif / Negatif</td>
+            <td></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">
+                @if ($narkotika->coccaine) Positif / <del>Negatif</del> @else <del>Positif</del> / Negatif @endif
+            </td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">
+                @if ($narkotika->methamphetamine) Positif / <del>Negatif</del> @else <del>Positif</del> / Negatif @endif
+            </td>
+            <td style="border-bottom: 1px solid #000;">
+                @if ($narkotika->morphin) Positif / <del>Negatif</del> @else <del>Positif</del> / Negatif @endif
+            </td>
         </tr>
         <tr>
+            <td></td>
             <td style="border-right: 1px solid #000;">Marijuana :</td>
             <td style="border-right: 1px solid #000;">Benzodiazepines :</td>
-            <td>Ampphetamine :</td>
+            <td>Amphetamine :</td>
         </tr>
         <tr>
-            <td style="border-right: 1px solid #000;">Positif / Negatif</td>
-            <td style="border-right: 1px solid #000;">Positif / Negatif</td>
-            <td>Positif / Negatif</td>
+            <td></td>
+            <td style="border-right: 1px solid #000;">
+                @if ($narkotika->marijuana) Positif / <del>Negatif</del> @else <del>Positif</del> / Negatif @endif
+            </td>
+            <td style="border-right: 1px solid #000;">
+                @if ($narkotika->benzodiazepines) Positif / <del>Negatif</del> @else <del>Positif</del> / Negatif @endif
+            </td>
+            <td>
+                @if ($narkotika->amphetamine) Positif / <del>Negatif</del> @else <del>Positif</del> / Negatif @endif
+            </td>
+        </tr>
+        <tr>
+            <td><b>3.</b></td>
+            <td colspan="3">Pemeriksaan fisik dengan hasil saat ini @if ($narkotika->kesimpulan) DITEMUKAN / <del>TIDAK DITEMUKAN</del> @else <del>DITEMUKAN</del> / TIDAK DITEMUKAN @endif tanda-tanda menggunakan narkoba</td>
         </tr>
     </table>
     
     <br>
 
     <p style="text-align: justify;">
-        Saat ini dapat dinyatakan dalam keadaan berbadan <b>-- SEHAT/SAKIT/CACAT/TIDAK CACAT JASMANI --</b> 
+        Berdasarkan data terperiksa tersebut diatas dapat disimpulkan bahwa saat ini <b> @if ($narkotika->kesimpulan) TERINDIKASI / <del>TIDAK TERINDIKASI</del> @else <del>TERINDIKASI</del> / TIDAK TERINDIKASI @endif </b> menggunakan narkotika sesuai dengan hasil pemeriksaan pada saat surat keterangan ini diterbitkan. 
     </p>
     <p style="text-align: justify;">
-        Surat Keterangan Sehat ini digunakn sebagai : <b>-- KEPERLUAN SURAT --</b> 
-    </p>
-    <p style="text-align: justify;">
-        Demikian surat keterangan ini agar dapat dipergunakan sebagaimana mestinya. Terima kasih.  
+        Surat Keterangan ini digunakan untuk : <b> {{ $narkotika->keperluanSurat }} </b> 
     </p>
 
     <br><br>
@@ -279,12 +322,12 @@
         </tr>
         <tr>
             <td>
-                dr. Vegapunk
+                {{ $dokter->nama }}
             </td>
         </tr>
         <tr>
             <td>
-                356878778
+                {{ $dokter->sip }}
             </td>
         </tr>
     </table>

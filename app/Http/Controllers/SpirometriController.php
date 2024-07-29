@@ -7,6 +7,7 @@ use App\Models\Dokter;
 use App\Models\Pasien;
 use App\Models\Spirometri;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 
 class SpirometriController extends Controller
@@ -46,46 +47,55 @@ class SpirometriController extends Controller
         $title ='DATA PEMERIKSAAN SPIROMETRI';
         $action = route('spirometri.generate', ['spirometri' => $spirometri->id]);
         $pasien = $spirometri->pasien;
+        $umur = Carbon::parse($pasien->tanggalLahir)->age;
         $dokter = Dokter::all();
         $readonly = true;
         $blank = true;
-        return view('form-surat.spirometri', compact('title', 'spirometri', 'readonly', 'pasien', 'dokter', 'action', 'blank'));
+        return view('form-surat.spirometri', compact('title', 'spirometri', 'readonly', 'pasien', 'dokter', 'action', 'blank', 'umur'));
     }
 
-    // public function edit(Audiometri $audiometri) {
-    //     $title = 'EDIT DATA PEMERIKSAAN AUDIOMETRI';
-    //     $pasien = $audiometri->pasien;
-    //     $action = route('audiometri.update', ['audiometri' => $audiometri->id]);
-    //     $readonly = false;
-    //     $dokter = Dokter::all();
-    //     $put = true;
-    //     return view('form-surat.audiometri', compact('title','audiometri', 'pasien', 'readonly', 'dokter', 'action', 'put'));
-    // }
+    public function edit(Spirometri $spirometri) {
+        $title = 'EDIT DATA PEMERIKSAAN SPIROMETRI';
+        $pasien = $spirometri->pasien;
+        $umur = Carbon::parse($pasien->tanggalLahir)->age;
+        $action = route('spirometri.update', ['spirometri' => $spirometri->id]);
+        $readonly = false;
+        $dokter = Dokter::all();
+        $put = true;
+        return view('form-surat.spirometri', compact('title','spirometri', 'pasien', 'readonly', 'dokter', 'action', 'put', 'umur'));
+    }
 
-    // public function update(Request $request, Audiometri $audiometri): RedirectResponse {
-    //     $validatedData = $request->validate([
-    //         'idPasien' => 'required',
-    //         'idDokter' => 'required',
-    //         'hslPemeriksaan' => 'required',
-    //         'kesimpulan' => 'required',
-    //     ]);
-    //     $audiometri->update($validatedData);
-    //     return redirect()->route('audiometri.show', ['audiometri' => $audiometri->id])->with('success', "Data Pasien Berhasil Diupdate");
-    // }
+    public function update(Request $request, Spirometri $spirometri): RedirectResponse {
+        $validatedData = $request->validate([
+            'idPasien' => 'required',
+            'idDokter' => 'required',
+            'tanggalPemeriksaan' => 'required',
+            'diagAwal' => 'required',
+            'hslPemeriksaan' => 'required',
+            'kesimpulan' => 'required',
+            'saran' => 'required',
+        ]);
+        $spirometri->update($validatedData);
+        return redirect()->route('spirometri.show', ['spirometri' => $spirometri->id])->with('success', "Data Pasien Berhasil Diupdate");
+    }
 
-    // public function destroy($id) {
-    //     $audiometri = Audiometri::findOrFail($id);
-    //     $idPasien = $audiometri->idPasien;
-    //     $audiometri->delete();
+    public function destroy($id) {
+        $spirometri = Spirometri::findOrFail($id);
+        $idPasien = $spirometri->idPasien;
+        $spirometri->delete();
 
-    //     return redirect()->route('audiometri.index', ['pasien' => $idPasien])->with('success', "Data Pasien Berhasil Dihapus");
-    // }
+        return redirect()->route('spirometri.index', ['pasien' => $idPasien])->with('success', "Data Pasien Berhasil Dihapus");
+    }
 
-    // public function generate(Audiometri $audiometri) {
-    //     $pasien = Pasien::find($audiometri->idPasien);
-    //     $dokter = Dokter::find($audiometri->idDokter);  
+    public function generate(Spirometri $spirometri) {
+        $pasien = Pasien::find($spirometri->idPasien);
+        $dokter = Dokter::find($spirometri->idDokter);  
+        $umur = Carbon::parse($pasien->tanggalLahir)->age;
 
-    //     $pdf = Pdf::loadView('template-surat.audiometri', ['audiometri' => $audiometri, 'pasien' => $pasien, 'dokter' => $dokter]);
-    //     return $pdf->stream("Hasil Pemeriksaan Audiometri " . $pasien->nama . " (" . $pasien->noRM . ").pdf");
-    // }
+        Carbon::setLocale('id');
+        $tanggalPemeriksaan = Carbon::parse($spirometri->tanggalPemeriksaan)->translatedFormat('d F Y');
+
+        $pdf = Pdf::loadView('template-surat.spirometri', ['spirometri' => $spirometri, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan]);
+        return $pdf->stream("Hasil Pemeriksaan Spirometri " . $pasien->nama . " (" . $pasien->noRM . ").pdf");
+    }
 }

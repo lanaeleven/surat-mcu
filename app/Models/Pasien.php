@@ -13,15 +13,39 @@ class Pasien extends Model
     protected $table = 'pasien';
     protected $guarded = ['id'];
 
-    // public function audiometri(): HasOne {
-    //     return $this->hasOne(Audiometri::class, 'idPasien');
-    // }
-
     public function audiometri(): HasMany {
         return $this->hasMany(Audiometri::class, 'idPasien');
     }
 
     public function spirometri(): HasMany {
         return $this->hasMany(Spirometri::class, 'idPasien');
+    }
+
+    public function vaksinasi(): HasMany {
+        return $this->hasMany(Vaksinasi::class, 'idPasien');
+    }
+
+    public function gizi(): HasMany {
+        return $this->hasMany(Gizi::class, 'idPasien');
+    }
+
+    public function medicalReport(): HasMany {
+        return $this->hasMany(MedicalReport::class, 'idPasien');
+    }
+
+    public function screening(): HasMany {
+        return $this->hasMany(Screening::class, 'idPasien');
+    }
+
+    public function narkotika(): HasMany {
+        return $this->hasMany(Narkotika::class, 'idPasien');
+    }
+
+    public function treadmill(): HasMany {
+        return $this->hasMany(Treadmill::class, 'idPasien');
+    }
+
+    public function gigi(): HasMany {
+        return $this->hasMany(Gigi::class, 'idPasien');
     }
 }

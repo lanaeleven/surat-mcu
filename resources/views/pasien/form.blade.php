@@ -37,7 +37,7 @@
                     </div>
 
                     <div>
-                        <x-date-input name="tanggalLahir" id="tanggalLahir" value="{{ old('tanggalLahir', $pasien->tanggalLahir ?? '') }}" :required="true">Tanggal Lahir</x-date-input>
+                        <x-date-input name="tanggalLahir" id="tanggalLahir" value="{{ old('tanggalLahir', $pasien->tanggalLahir ?? '') }}" :required="true" :readonly="$readonly">Tanggal Lahir</x-date-input>
                         @error('tanggalLahir')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -51,7 +51,7 @@
                     @endphp
 
                     <div>
-                        <x-radio-button-input name="jenisKelamin" checked="{{ old('jenisKelamin', $pasien->jenisKelamin ?? '') }}" :options="$optionsJenisKelamin" :required="true">Jenis Kelamin</x-radio-button-input>
+                        <x-radio-button-input name="jenisKelamin" checked="{{ old('jenisKelamin', $pasien->jenisKelamin ?? '') }}" :options="$optionsJenisKelamin" :required="true" :readonly="$readonly">Jenis Kelamin</x-radio-button-input>
                         @error('jenisKelamin')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

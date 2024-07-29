@@ -160,14 +160,14 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                <td>JRG/234/RNYN/4566</td>
-                <td style="text-align: right;">Banjarbaru, 5 Rabiul Awal 1446 H</td>
+                <td>{{ $medicalReport->noSurat }}</td>
+                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
             </tr>
             <tr>
                 <td>Lampiran</td>
                 <td>:</td>
                 <td>1 Bendel</td>
-                <td style="text-align: right;">20 Juli 2024 M</td>
+                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
             </tr>
             <tr>
                 <td>Hal</td>
@@ -183,7 +183,7 @@
         <tr>
             <td>Nama/Name</td>
             <td>:</td>
-            <td>dr. Vegapunk</td>
+            <td>{{ $dokter->nama }}</td>
         </tr>
         <tr>
             <td>Jabatan/Profesion</td>
@@ -209,27 +209,27 @@
         <tr>
             <td>Nama/Name</td>
             <td>:</td>
-            <td>Michael</td>
+            <td>{{ $pasien->nama }}</td>
         </tr>
         <tr>
             <td>TTL/Date Of Birth/ Umur/Age</td>
             <td>:</td>
-            <td>Banjarbaru, 12 Januari 1997</td>
+            <td>{{ $pasien->tempatLahir }}, {{ $tanggalLahir }}</td>
         </tr>
         <tr>
             <td>Jenis Kelamin/Gender</td>
             <td>:</td>
-            <td>Laki-laki</td>
+            <td>{{ $pasien->jenisKelamin }}</td>
         </tr>
         <tr>
             <td>Alamat/Address</td>
             <td>:</td>
-            <td>Jl. A.Yani KM 3 Kota Banjarmasin</td>
+            <td>{{ $pasien->alamat }}</td>
         </tr>
         <tr>
             <td>Nomor RM</td>
             <td>:</td>
-            <td>38467938765</td>
+            <td>{{ $pasien->noRM }}</td>
         </tr>
     </table>
 
@@ -246,10 +246,10 @@
             <td>SPO2 :</td>
         </tr>
         <tr>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">170 <b>cm</b></td>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">60 <b>x/menit</b></td>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">170/80 <b>mmHg</b></td>
-            <td style="border-bottom: 1px solid #000;">70 <b>%</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $medicalReport->tinggiBadan }} cm</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $medicalReport->denyutNadi }} x/menit</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $medicalReport->tekananDarah }} mmHg</b></td>
+            <td style="border-bottom: 1px solid #000;"><b>{{ $medicalReport->spo2 }} %</b></td>
         </tr>
         <tr>
             <td style="border-right: 1px solid #000;">Berat Badan :</td>
@@ -258,17 +258,19 @@
             <td>IMT :</td>
         </tr>
         <tr>
-            <td style="border-right: 1px solid #000;">70 <b>kg</b></td>
-            <td style="border-right: 1px solid #000;">20 <b>x/menit</b></td>
-            <td style="border-right: 1px solid #000;">25 <b><span>&deg;</span>C</b></td>
-            <td>55 <b>kg/m<sup>2</sup></b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $medicalReport->beratBadan }} kg</b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $medicalReport->frekuensiNafas }} x/menit</b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $medicalReport->suhuBadan }}<span>&deg;</span>C</b></td>
+            <td><b>{{ $medicalReport->imt }} kg/m<sup>2</sup></b></td>
         </tr>
     </table>
     
     <br>
 
     <b>Kondisi Klinis :</b>
-    <p style="text-align: justify">Lorem </p>
+    <p style="text-align: justify">
+        {{ $medicalReport->hslPemeriksaan }}
+    </p>
     
 
     <br>
@@ -315,12 +317,19 @@
     <br>
 
     <b>REKOMENDASI / SARAN :</b>
-    <p style="text-align: justify"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, soluta! Esse illo ex enim sed unde quis adipisci, modi maiores? </p>
+    <p style="text-align: justify">
+        {{ $medicalReport->saran }}
+    </p>
     <p>Terima kasih atas kepercayaan Anda telah melakukan pemeriksaan kesehatan bersama Rumah Sakit Islam Sultan Agung Banjarbaru.</p>
 
     <br><br>
 
     <table class="table-container-ttd">
+        <tr>
+            <td>
+                Banjarbaru, {{ $tanggalPemeriksaan }}
+            </td>
+        </tr>
         <tr>
             <td>
                 Dokter Pemeriksa
@@ -333,12 +342,12 @@
         </tr>
         <tr>
             <td>
-                dr. Vegapunk
+                {{ $dokter->nama }}
             </td>
         </tr>
         <tr>
             <td>
-                356878778
+                {{ $dokter->sip }}
             </td>
         </tr>
     </table>

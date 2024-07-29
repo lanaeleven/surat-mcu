@@ -138,14 +138,14 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                <td>JRG/234/RNYN/4566</td>
-                <td style="text-align: right;">Banjarbaru, 5 Rabiul Awal 1446 H</td>
+                <td>{{ $gizi->noSurat }}</td>
+                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
             </tr>
             <tr>
                 <td>Lampiran</td>
                 <td>:</td>
                 <td>1 Bendel</td>
-                <td style="text-align: right;">20 Juli 2024 M</td>
+                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
             </tr>
             <tr>
                 <td>Hal</td>
@@ -161,37 +161,37 @@
         <tr>
             <td>Nama</td>
             <td>:</td>
-            <td>Dwight Schrute</td>
+            <td>{{ $pasien->nama }}</td>
         </tr>
         <tr>
             <td>Tanggal Lahir</td>
             <td>:</td>
-            <td>26 Mei 1986</td>
+            <td>{{ $tanggalLahir }}</td>
         </tr>
         <tr>
             <td>Usia</td>
             <td>:</td>
-            <td>40 tahun</td>
+            <td>{{ $umur }} tahun</td>
         </tr>
         <tr>
             <td>Jenis Kelamin</td>
             <td>:</td>
-            <td>Laki-laki</td>
+            <td>{{ $pasien->jenisKelamin }}</td>
         </tr>
         <tr>
             <td>Alamat</td>
             <td>:</td>
-            <td>Jalan A Yani KM 10,2</td>
+            <td>{{ $pasien->alamat }}</td>
         </tr>
         <tr>
             <td>Tanggal Pemeriksaan</td>
             <td>:</td>
-            <td>18 Juli 2024</td>
+            <td>{{ $tanggalPemeriksaan }}</td>
         </tr>
         <tr>
             <td>Nomor RM</td>
             <td>:</td>
-            <td>357690586</td>
+            <td>{{ $pasien->noRM }}</td>
         </tr>
     </table>
 
@@ -208,10 +208,10 @@
             <td>SPO2 :</td>
         </tr>
         <tr>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">170 <b>cm</b></td>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">60 <b>x/menit</b></td>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">170/80 <b>mmHg</b></td>
-            <td style="border-bottom: 1px solid #000;">70 <b>%</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $gizi->tinggiBadan }} cm</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $gizi->denyutNadi }} x/menit</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $gizi->tekananDarah }} mmHg</b></td>
+            <td style="border-bottom: 1px solid #000;"><b>{{ $gizi->spo2 }} %</b></td>
         </tr>
         <tr>
             <td style="border-right: 1px solid #000;">Berat Badan :</td>
@@ -220,17 +220,19 @@
             <td>IMT :</td>
         </tr>
         <tr>
-            <td style="border-right: 1px solid #000;">70 <b>kg</b></td>
-            <td style="border-right: 1px solid #000;">20 <b>x/menit</b></td>
-            <td style="border-right: 1px solid #000;">25 <b><span>&deg;</span>C</b></td>
-            <td>55 <b>kg/m<sup>2</sup></b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $gizi->beratBadan }} kg</b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $gizi->frekuensiNafas }} x/menit</b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $gizi->suhuBadan }} <span>&deg;</span>C</b></td>
+            <td><b>{{ $gizi->imt }} kg/m<sup>2</sup></b></td>
         </tr>
     </table>
     
     <br>
 
     <b>Hasil BIA :</b>
-    <p style="text-align: justify">Lorem </p>
+    <p style="text-align: justify">
+        {!! nl2br(e($gizi->hslBIA)) !!}
+    </p>
     
     <table class="table-status-gizi">
         <tr>
@@ -244,7 +246,11 @@
                 a. Normal
             </td>
             <td>
-                |_|
+                @if ($gizi->statusGizi == "Normal")
+                    <img src="conteng.png" width="15px" alt="">
+                @else
+                    <img src="unconteng.png" width="15px" alt="">
+                @endif
             </td>
         </tr>
         <tr>
@@ -254,7 +260,11 @@
                 b. Obesitas
             </td>
             <td>
-                |_|
+                @if ($gizi->statusGizi == "Obesitas")
+                    <img src="conteng.png" width="15px" alt="">
+                @else
+                    <img src="unconteng.png" width="15px" alt="">
+                @endif
             </td>
         </tr>
         <tr>
@@ -264,7 +274,11 @@
                 b. Gizi Kurang
             </td>
             <td>
-                |_|
+                @if ($gizi->statusGizi == "Gizi Kurang")
+                    <img src="conteng.png" width="15px" alt="">
+                @else
+                    <img src="unconteng.png" width="15px" alt="">
+                @endif
             </td>
         </tr>
     </table>
@@ -272,12 +286,16 @@
     <br>
 
     <b>Rekomendasi Terapi Gizi Medik :</b>
-    <p style="text-align: justify">Lorem </p>
+    <p style="text-align: justify">
+        {!! nl2br(e($gizi->rekomTerapiGizi)) !!}
+    </p>
 
     <br>
 
     <b>REKOMENDASI / SARAN :</b>
-    <p style="text-align: justify"> </p>
+    <p style="text-align: justify">
+        {!! nl2br(e($gizi->saran)) !!}
+    </p>
 
     <br><br>
 
@@ -294,12 +312,12 @@
         </tr>
         <tr>
             <td>
-                dr. Vegapunk
+                {{ $dokter->nama }}
             </td>
         </tr>
         <tr>
             <td>
-                356878778
+                {{ $dokter->sip }}
             </td>
         </tr>
     </table>

@@ -108,7 +108,7 @@
 
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
-            <h3>HASIL PEMERIKSAAN AUDIOMETRI</h3>
+            <u><h3>HASIL PEMERIKSAAN AUDIOMETRI</h3></u>
             <table class="table-container-atas">
         <tr>
             <td>Nama/Name</td>
@@ -118,7 +118,7 @@
         <tr>
             <td>TTL/Date of Birth/ Umur/Age</td>
             <td>:</td>
-            <td>{{ $pasien->tempatLahir }}, {{ $pasien->tanggalLahir }}</td>
+            <td>{{ $pasien->tempatLahir }}, {{ $tanggalLahir }} ({{ $umur }} tahun)</td>
         </tr>
         <tr>
             <td>Jenis Kelamin/Gender</td>

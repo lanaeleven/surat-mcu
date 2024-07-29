@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "alkoumi/laravel-hijri-date": "^1.0",
         "barryvdh/laravel-dompdf": "^2.2",
         "blade-ui-kit/blade-heroicons": "^2.4",
         "guzzlehttp/guzzle": "^7.2",
@@ -27,7 +28,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/DateHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

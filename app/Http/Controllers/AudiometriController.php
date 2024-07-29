@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Dokter;
 use App\Models\Pasien;
 use App\Models\Audiometri;
@@ -80,8 +81,12 @@ class AudiometriController extends Controller
     public function generate(Audiometri $audiometri) {
         $pasien = Pasien::find($audiometri->idPasien);
         $dokter = Dokter::find($audiometri->idDokter);  
+        $umur = Carbon::parse($pasien->tanggalLahir)->age;
 
-        $pdf = Pdf::loadView('template-surat.audiometri', ['audiometri' => $audiometri, 'pasien' => $pasien, 'dokter' => $dokter]);
+        Carbon::setLocale('id');
+        $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
+
+        $pdf = Pdf::loadView('template-surat.audiometri', ['audiometri' => $audiometri, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalLahir' => $tanggalLahir]);
         return $pdf->stream("Hasil Pemeriksaan Audiometri " . $pasien->nama . " (" . $pasien->noRM . ").pdf");
     }
 }

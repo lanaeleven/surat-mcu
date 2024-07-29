@@ -55,12 +55,11 @@
         <div class="grid grid-cols-2 gap-x-6 gap-y-4">
             <input type="hidden" name="idPasien" value="{{ $pasien->id }}" >
             <div>
-                <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $pasien->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
-                @error('tanggalPemeriksaan')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                <x-dropdown-input :label="'Dokter Pemeriksa'" labelPilihan='Pilih Dokter' :name="'idDokter'" :id="'idDokter'" :options="$dokter" :readonly="$readonly" :required="true" selectedId="{{ old('idDokter', $spirometri->dokter->id ?? '') }}"></x-dropdown-input>
             </div>
-            <div></div>
+            <div>
+                <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $spirometri->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
+            </div>
             <div>
                 <x-text-area-input label='Diagnosa Awal' id='diagAwal' name='diagAwal' value="{{ old('diagAwal', $spirometri->diagAwal ?? '') }}" :required="true" 
                 :readonly="$readonly" ></x-text-area-input>
@@ -84,7 +83,7 @@
                 <x-green-submit-button>Buat Surat</x-green-submit-button>
                 @else
                 <x-blue-submit-button>
-                    @if (isset($audiometri))
+                    @if (isset($spirometri))
                     Update Data
                     @else
                     Tambah Data

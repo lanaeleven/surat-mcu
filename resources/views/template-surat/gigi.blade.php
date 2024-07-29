@@ -135,43 +135,43 @@
         <tr>
             <td>Nama</td>
             <td>:</td>
-            <td>Michael</td>
+            <td>{{ $pasien->nama }}</td>
         </tr>
         <tr>
             <td>Tanggal Lahir</td>
             <td>:</td>
-            <td>2 Juli 1979</td>
+            <td>{{ $tanggalLahir }}</td>
         </tr>
         <tr>
             <td>Usia</td>
             <td>:</td>
-            <td>34 tahun</td>
+            <td>{{ $umur }} tahun</td>
         </tr>
         <tr>
             <td>Jenis Kelamin</td>
             <td>:</td>
-            <td>Laki-laki</td>
+            <td>{{ $pasien->jenisKelamin }}</td>
         </tr>
         <tr>
             <td>Tanggal MCU</td>
             <td>:</td>
-            <td>18 Juli 2024</td>
+            <td>{{ $tanggalPemeriksaan }}</td>
         </tr>
     </table>
 
     <br>
 
-    <h3>ONTOGRAM IDENTIFIKASI</h3>
+    <h3>ODONTOGRAM IDENTIFIKASI</h3>
 
-    <img src="" alt="">
+    <img src="images/odontogram.png" width="620px" alt="">
 
     <p>Keterangan tanda-tanda :</p>
     <table class="table-tanda">
         <tr>
-            <td style="width: 120px;">O berlubang</td>
+            <td style="width: 100px;"><img src="images/karies.png" width="15px" alt=""></td>
             <td>:</td>
             <td style="width: 150px;">karies</td>
-            <td style="width: 120px;">O hitam</td>
+            <td style="width: 100px;"><img src="images/tambalan.png" width="15px" alt=""></td>
             <td>:</td>
             <td>Tambalan</td>
         </tr>
@@ -179,7 +179,7 @@
             <td>V</td>
             <td>:</td>
             <td>sisa akar</td>
-            <td>Kotak</td>
+            <td><img src="images/tiruan.png" width="15px" alt=""></td>
             <td>:</td>
             <td>Gigi tiruan</td>
         </tr>
@@ -200,7 +200,11 @@
             <td style="width: 100px">Rahang atas</td>
             <td>:</td>
             <td>
-                Ada / Tidak Ada
+                @if ($gigi->karangAtas)
+                Ada / <del>Tidak Ada</del>
+                @else
+                <del>Ada</del> / Tidak Ada
+                @endif
             </td>
         </tr>
         <tr>
@@ -208,38 +212,42 @@
             <td>Rahang bawah</td>
             <td>:</td>
             <td>
-                Ada / Tidak Ada
+                @if ($gigi->karangBawah)
+                Ada / <del>Tidak Ada</del>
+                @else
+                <del>Ada</del> / Tidak Ada
+                @endif
             </td>
         </tr>
         <tr>
             <td colspan="2">Jumlah Decay/ gigi berlubang</td>
             <td>:</td>
-            <td>-- JUMLAH DECAY --</td>
+            <td>{{ $gigi->decay }}</td>
         </tr>
         <tr>
             <td colspan="2">Jumlah Missing/ gigi yang hilang</td>
             <td>:</td>
-            <td>-- JUMLAH MISSING --</td>
+            <td>{{ $gigi->missing }}</td>
         </tr>
         <tr>
             <td colspan="2">Jumlah Filling/ gigi tambalan</td>
             <td>:</td>
-            <td>-- JUMLAH Filling --</td>
+            <td>{{ $gigi->filling }}</td>
         </tr>
         <tr>
             <td colspan="2">Jumlah sisa akar</td>
             <td>:</td>
-            <td>-- JUMLAH sisa akar --</td>
+            <td>{{ $gigi->sisaAkar }}</td>
         </tr>
         <tr>
             <td colspan="2">Pemeriksaan jaringan lunak</td>
             <td>:</td>
-            <td>-- Pemeriksaan jaringan lunak --</td>
+            <td>{{ $gigi->jaringanLunak }}</td>
         </tr>
         <tr>
             <td colspan="2">Lainnya</td>
             <td>:</td>
-            <td>-- Lainnya --</td>
+            <td>{{ $gigi->lainnya }}</td>
         </tr>
     </table>
 
@@ -250,7 +258,7 @@
             <td style="width: 180px; vertical-align: top;"><b>Kesimpulan & Saran</b></td>
             <td style="vertical-align: top;">:</td>
             <td style="vertical-align: top; text-align: justify;">
-                -- KESIMPULAN DAN SARAN -- Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, laudantium distinctio corrupti deserunt voluptas culpa, facere iusto velit quam asperiores possimus, facilis voluptatibus modi explicabo?
+                {{ $gigi->kesimpulan }}
             </td>
         </tr>
     </table>
@@ -270,12 +278,12 @@
         </tr>
         <tr>
             <td>
-                dr. Vegapunk
+                {{ $dokter->nama }}
             </td>
         </tr>
         <tr>
             <td>
-                2837548957
+                {{ $dokter->sip }}
             </td>
         </tr>
     </table>

@@ -119,14 +119,14 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                <td>JRG/234/RNYN/4566</td>
-                <td style="text-align: right;">Banjarbaru, 5 Rabiul Awal 1446 H</td>
+                <td>{{ $vaksinasi->noSurat }}</td>
+                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
             </tr>
             <tr>
                 <td>Lampiran</td>
                 <td>:</td>
                 <td>1 Bendel</td>
-                <td style="text-align: right;">20 Juli 2024 M</td>
+                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
             </tr>
             <tr>
                 <td>Hal</td>
@@ -142,7 +142,7 @@
         <tr>
             <td>Nama/Name</td>
             <td>:</td>
-            <td>dr. Vegapunk</td>
+            <td>{{ $dokter->nama }}</td>
         </tr>
         <tr>
             <td>Jabatan/Profesion</td>
@@ -168,27 +168,27 @@
         <tr>
             <td>Nama/Name</td>
             <td>:</td>
-            <td>Michael</td>
+            <td>{{ $pasien->nama }}</td>
         </tr>
         <tr>
             <td>TTL/Date Of Birth/ Umur/Age</td>
             <td>:</td>
-            <td>Banjarbaru, 12 Januari 1997</td>
+            <td>{{ $pasien->tempatLahir }}, {{ $tanggalLahir }} ({{ $umur }} tahun)</td>
         </tr>
         <tr>
             <td>Jenis Kelamin/Gender</td>
             <td>:</td>
-            <td>Laki-laki</td>
+            <td>{{ $pasien->jenisKelamin }}</td>
         </tr>
         <tr>
             <td>Alamat/Address</td>
             <td>:</td>
-            <td>Jl. A.Yani KM 3 Kota Banjarmasin</td>
+            <td>{{ $pasien->alamat }}</td>
         </tr>
         <tr>
             <td>Nomor RM</td>
             <td>:</td>
-            <td>38467938765</td>
+            <td>{{ $pasien->noRM }}</td>
         </tr>
     </table>
 
@@ -207,12 +207,12 @@
         </tr>
         <tr>
             <td>
-                dr. Vegapunk
+                {{ $dokter->nama }}
             </td>
         </tr>
         <tr>
             <td>
-                356878778
+                {{ $dokter->sip }}
             </td>
         </tr>
     </table>

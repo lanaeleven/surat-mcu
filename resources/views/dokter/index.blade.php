@@ -14,6 +14,10 @@
   <div class="flex justify-end">
     <div><x-green-link-button href="{{ route('dokter.create') }}">Tambah dokter</x-green-link-button></div>
   </div>
+
+@if ($dokter->isEmpty())
+  <h3 class="text-center text-xl">Belum ada data dokter</h3>
+@else
   
   <div class="mt-5">
   <x-table :headers="['ID', 'Nama', 'SIP', 'Aksi']">
@@ -35,6 +39,8 @@
     @endforeach
   </x-table>
 </div>
+
+@endif
 
 </div>
 

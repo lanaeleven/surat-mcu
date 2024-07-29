@@ -35,10 +35,38 @@
           {{ $dp->updated_at }}
         </td>      
         <td class="px-6 py-4 min-w-[200px]">
+          
           @php
               if ($jenisPemeriksaan == 'audiometri') {
                 $routeCetak = route('audiometri.show', ['audiometri' => $dp->id]);
                 $routeHapus = route('audiometri.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'spirometri') {
+                $routeCetak = route('spirometri.show', ['spirometri' => $dp->id]);
+                $routeHapus = route('spirometri.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'vaksinasi') {
+                $routeCetak = route('vaksinasi.show', ['vaksinasi' => $dp->id]);
+                $routeHapus = route('vaksinasi.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'gizi') {
+                $routeCetak = route('gizi.show', ['gizi' => $dp->id]);
+                $routeHapus = route('gizi.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'medicalReport') {
+                $routeCetak = route('medicalReport.show', ['medicalReport' => $dp->id]);
+                $routeHapus = route('medicalReport.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'screening') {
+                $routeCetak = route('screening.show', ['screening' => $dp->id]);
+                $routeHapus = route('screening.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'kesehatanBadan') {
+                $routeCetak = route('kesehatanBadan.show', ['kesehatanBadan' => $dp->id]);
+                $routeHapus = route('kesehatanBadan.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'narkotika') {
+                $routeCetak = route('narkotika.show', ['narkotika' => $dp->id]);
+                $routeHapus = route('narkotika.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'treadmill') {
+                $routeCetak = route('treadmill.show', ['treadmill' => $dp->id]);
+                $routeHapus = route('treadmill.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'gigi') {
+                $routeCetak = route('gigi.show', ['gigi' => $dp->id]);
+                $routeHapus = route('gigi.destroy', ['id' => $dp->id]);
               } else {
                 $route = '';
               }

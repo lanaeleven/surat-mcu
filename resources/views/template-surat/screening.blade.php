@@ -161,14 +161,14 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                <td>JRG/234/RNYN/4566</td>
-                <td style="text-align: right;">Banjarbaru, 5 Rabiul Awal 1446 H</td>
+                <td>{{ $screening->noSurat }}</td>
+                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
             </tr>
             <tr>
                 <td>Lampiran</td>
                 <td>:</td>
                 <td>1 Bendel</td>
-                <td style="text-align: right;">20 Juli 2024 M</td>
+                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
             </tr>
             <tr>
                 <td>Hal</td>
@@ -178,18 +178,18 @@
             </tr>
         </table>
         <br>
-            <h3>SURAT KETERANGAN SCREENING -- NAMA PEMERIKSAAN --</h3>
+            <h3 style="text-transform: uppercase">SURAT KETERANGAN SCREENING {{ $screening->jenisScreening }}</h3>
             Yang bertanda tangan di bawah ini:
             <table class="table-container-atas">
         <tr>
             <td>Nama/Name</td>
             <td>:</td>
-            <td>-- NAMA DOKTER PEMERIKSA --</td>
+            <td>{{ $dokter->nama }}</td>
         </tr>
         <tr>
             <td>Jabatan/Profesion</td>
             <td>:</td>
-            <td>-- DOKTER SPESIALIS --</td>
+            <td>{{ $screening->dokterSpesialis }}</td>
         </tr>
         <tr>
             <td>Instansi/Office</td>
@@ -210,27 +210,27 @@
         <tr>
             <td>Nama/Name</td>
             <td>:</td>
-            <td>-- NAMA PASIEN --</td>
+            <td>{{ $pasien->nama }}</td>
         </tr>
         <tr>
             <td>TTL/Date Of Birth</td>
             <td>:</td>
-            <td>-- TEMPAT, TANGGAL LAHIR PASIEN --</td>
+            <td>{{ $pasien->tempatLahir }}, {{ $tanggalLahir }}</td>
         </tr>
         <tr>
             <td>Umur/Age</td>
             <td>:</td>
-            <td>-- UMUR PASIEN --</td>
+            <td>{{ $umur }} tahun</td>
         </tr>
         <tr>
             <td>Alamat/Address</td>
             <td>:</td>
-            <td>-- ALAMAT PASIEN --</td>
+            <td>{{ $pasien->alamat }}</td>
         </tr>
         <tr>
             <td>Nomor RM</td>
             <td>:</td>
-            <td>-- NOMOR RM PASIEN --</td>
+            <td>{{ $pasien->noRM }}</td>
         </tr>
     </table>
 
@@ -239,9 +239,17 @@
     <br>
 
     <p>Kondisi Klinis :</p>
-    <p style="text-align: justify">-- HASIL PEMERIKSAAN -- </p>
     <p style="text-align: justify">
-        Berdasarkan hasil pemeriksaan kesehatan Fungsi Liver yang telah dilakukan saat ini, maka dapat disimpulkan bahwa saudara/i -- NAMA PASIEN -- memiliki kondisi kesehatan -- JENIS SCREENING -- yang <span style="color: red">SEHAT/TIDAK SEHAT</span> (hasil pemeriksaan terlampir).
+        {{ $screening->hslPemeriksaan }}
+    </p>
+    <p style="text-align: justify">
+        Berdasarkan hasil pemeriksaan kesehatan {{ $screening->jenisScreening }} yang telah dilakukan saat ini, maka dapat disimpulkan bahwa saudara/i {{ $pasien->nama }} memiliki kondisi kesehatan {{ $screening->jenisScreening }} yang <b>
+        @if ($screening->statusKesehatan == "SEHAT")
+        <span style="color: red">SEHAT / <del>TIDAK SEHAT</del></span> 
+        @else
+        <span style="color: red"><del>SEHAT</del> / TIDAK SEHAT</span> 
+        @endif </b>
+        (hasil pemeriksaan terlampir).
     </p>
     <p>Demikian surat keterangan ini dibuat agar dapat dipergunakan sebagai mana mestinya. Terima kasih.</p>
 
@@ -250,7 +258,7 @@
     <table class="table-container-ttd">
         <tr>
             <td>
-                Banjarbaru, -- TANGGAL PEMERIKSAAN --
+                Banjarbaru, {{ $tanggalPemeriksaan }}
             </td>
         </tr>
         <tr>
@@ -265,12 +273,12 @@
         </tr>
         <tr>
             <td>
-                dr. Vegapunk
+                {{ $dokter->nama }}
             </td>
         </tr>
         <tr>
             <td>
-                356878778
+                {{ $dokter->sip }}
             </td>
         </tr>
     </table>

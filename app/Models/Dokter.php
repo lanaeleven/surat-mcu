@@ -24,4 +24,36 @@ class Dokter extends Model
     public function spirometri(): HasMany {
         return $this->hasMany(Spirometri::class, 'idDokter');
     }
+
+    public function vaksinasi(): HasMany {
+        return $this->hasMany(Vaksinasi::class, 'idDokter');
+    }
+
+    public function gizi(): HasMany {
+        return $this->hasMany(Gizi::class, 'idDokter');
+    }
+
+    public function medicalReport(): HasMany {
+        return $this->hasMany(MedicalReport::class, 'idDokter');
+    }
+
+    public function screening(): HasMany {
+        return $this->hasMany(Screening::class, 'idDokter');
+    }
+
+    public function kesehatanBadan(): HasMany {
+        return $this->hasMany(KesehatanBadan::class, 'idDokter');
+    }
+
+    public function narkotika(): HasMany {
+        return $this->hasMany(Narkotika::class, 'idDokter');
+    }
+
+    public function treadmill(): HasMany {
+        return $this->hasMany(Treadmill::class, 'idDokter');
+    }
+
+    public function gigi(): HasMany {
+        return $this->hasMany(Gigi::class, 'idDokter');
+    }
 }

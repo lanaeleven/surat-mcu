@@ -118,37 +118,37 @@
         <tr>
             <td>No. Rekam Medis</td>
             <td>:</td>
-            <td>1460467</td>
+            <td>{{ $pasien->noRM }}</td>
         </tr>
         <tr>
             <td>Tanggal Pemeriksaan</td>
             <td>:</td>
-            <td>2 Juli 2024</td>
+            <td>{{ $tanggalPemeriksaan }}</td>
         </tr>
         <tr>
             <td>Nama</td>
             <td>:</td>
-            <td>Michelle</td>
+            <td>{{ $pasien->nama }}</td>
         </tr>
         <tr>
             <td>Umur Pasien</td>
             <td>:</td>
-            <td>23 Tahun</td>
+            <td>{{ $umur }} tahun</td>
         </tr>
         <tr>
             <td>Jenis Kelamin</td>
             <td>:</td>
-            <td>Perempuan</td>
+            <td>{{ $pasien->jenisKelamin }}</td>
         </tr>
         <tr>
             <td>Alamat</td>
             <td>:</td>
-            <td>Jalan A Yani jm.17,14</td>
+            <td>{{ $pasien->alamat }}</td>
         </tr>
         <tr>
             <td>Diagnosa Awal/Klinis</td>
             <td>:</td>
-            <td>Paru-paru smile</td>
+            <td>{!! nl2br(e($spirometri->diagAwal)) !!}</td>
         </tr>
     </table>
 
@@ -156,7 +156,7 @@
 
     <h3>HASIL BACAAN</h3>
 
-    <table class="table-container-bawah">
+    <table class="table-container-bawah" style="width: 100%">
         <tr>
             <td style="width: 40px">I.</td>
             <td style="height: 40px">Kesan</td>
@@ -164,7 +164,7 @@
         <tr>
             <td></td>
             <td style="text-align: justify; border: 1px solid #000; padding: 8px;" >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam nisi illum odit ipsam sequi et nam expedita itaque, atque ab!
+                {!! nl2br(e($spirometri->hslPemeriksaan)) !!}
             </td>
         </tr>
         <tr>
@@ -174,7 +174,7 @@
         <tr>
             <td></td>
             <td style="text-align: justify; border: 1px solid #000; padding: 8px;" >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum vitae nesciunt consequatur architecto perspiciatis molestiae neque nemo sint, earum mollitia.
+                {!! nl2br(e($spirometri->kesimpulan)) !!}
             </td>
         </tr>
         <tr>
@@ -184,7 +184,7 @@
         <tr>
             <td></td>
             <td style="text-align: justify; border: 1px solid #000; padding: 8px;" >
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic quos provident dignissimos magni ad enim nihil magnam beatae ea necessitatibus?
+                {!! nl2br(e($spirometri->saran)) !!}
             </td>
         </tr>
     </table>
@@ -204,12 +204,12 @@
         </tr>
         <tr>
             <td>
-                dr. Vegapunk
+                {{ $dokter->nama }}
             </td>
         </tr>
         <tr>
             <td>
-                2837548957
+                {{ $dokter->sip }}
             </td>
         </tr>
     </table>

@@ -160,14 +160,14 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                <td>JRG/234/RNYN/4566</td>
-                <td style="text-align: right;">Banjarbaru, 5 Rabiul Awal 1446 H</td>
+                <td>{{ $kesehatanBadan->noSurat }}</td>
+                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
             </tr>
             <tr>
                 <td>Lampiran</td>
                 <td>:</td>
                 <td>1 Bendel</td>
-                <td style="text-align: right;">20 Juli 2024 M</td>
+                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
             </tr>
             <tr>
                 <td>Hal</td>
@@ -189,13 +189,13 @@
                 </td>
             </tr>
         </table>
-            <p>Berdasarkan Pemeriksaan Fisik saat ini -- TANGGAL PELAYANAN --</p>
+            <p>Berdasarkan Pemeriksaan Fisik saat ini {{ $tanggalPemeriksaan }}</p>
             <p>Yang bertanda tangan di bawah ini:</p>
             <table class="table-container-atas">
         <tr>
             <td>Nama/Name</td>
             <td>:</td>
-            <td>-- NAMA DOKTER PEMERIKSA --</td>
+            <td>{{ $dokter->nama }}</td>
         </tr>
         <tr>
             <td>Jabatan/Profesion</td>
@@ -221,27 +221,27 @@
         <tr>
             <td>Nama/Name</td>
             <td>:</td>
-            <td>-- NAMA PASIEN --</td>
+            <td>{{ $pasien->nama }}</td>
         </tr>
         <tr>
             <td>TTL/Date Of Birth/ Umur/Age</td>
             <td>:</td>
-            <td>-- TEMPAT, TANGGAL LAHIR PASIEN --</td>
+            <td>{{ $pasien->tempatLahir }}, {{ $tanggalLahir }} ({{ $umur }} tahun)</td>
         </tr>
         <tr>
             <td>Jenis Kelamin/Gender</td>
             <td>:</td>
-            <td>-- JENIS KELAMIN --</td>
+            <td>{{ $pasien->jenisKelamin }}</td>
         </tr>
         <tr>
             <td>Alamat/Address</td>
             <td>:</td>
-            <td>-- ALAMAT PASIEN --</td>
+            <td>{{ $pasien->alamat }}</td>
         </tr>
         <tr>
             <td>Nomor RM</td>
             <td>:</td>
-            <td>-- NOMOR RM PASIEN --</td>
+            <td>{{ $pasien->noRM }}</td>
         </tr>
     </table>
 
@@ -256,10 +256,10 @@
             <td>SPO2 :</td>
         </tr>
         <tr>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">170 <b>cm</b></td>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">60 <b>x/menit</b></td>
-            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;">170/80 <b>mmHg</b></td>
-            <td style="border-bottom: 1px solid #000;">70 <b>%</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $kesehatanBadan->tinggiBadan }} cm</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $kesehatanBadan->denyutNadi }} x/menit</b></td>
+            <td style="border-right: 1px solid #000; border-bottom: 1px solid #000;"><b>{{ $kesehatanBadan->tekananDarah }} mmHg</b></td>
+            <td style="border-bottom: 1px solid #000;"><b>{{ $kesehatanBadan->spo2 }} %</b></td>
         </tr>
         <tr>
             <td style="border-right: 1px solid #000;">Berat Badan :</td>
@@ -268,20 +268,44 @@
             <td>IMT :</td>
         </tr>
         <tr>
-            <td style="border-right: 1px solid #000;">70 <b>kg</b></td>
-            <td style="border-right: 1px solid #000;">20 <b>x/menit</b></td>
-            <td style="border-right: 1px solid #000;">25 <b><span>&deg;</span>C</b></td>
-            <td>55 <b>kg/m<sup>2</sup></b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $kesehatanBadan->beratBadan }} kg</b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $kesehatanBadan->frekuensiNafas }} x/menit</b></td>
+            <td style="border-right: 1px solid #000;"><b>{{ $kesehatanBadan->suhuBadan }} <span>&deg;</span>C</b></td>
+            <td><b>{{ $kesehatanBadan->imt }} kg/m<sup>2</sup></b></td>
         </tr>
     </table>
     
     <br>
 
     <p style="text-align: justify;">
-        Saat ini dapat dinyatakan dalam keadaan berbadan <b>-- SEHAT/SAKIT/CACAT/TIDAK CACAT JASMANI --</b> 
+        Saat ini dapat dinyatakan dalam keadaan berbadan <b>
+        @if ($kesehatanBadan->sehat)
+            SEHAT
+        @else
+            <del>SEHAT</del>
+        @endif    
+        /
+        @if ($kesehatanBadan->sakit)
+            SAKIT
+        @else
+            <del>SAKIT</del>
+        @endif    
+        /
+        @if ($kesehatanBadan->cacat)
+            CACAT
+        @else
+            <del>CACAT</del>
+        @endif    
+        /
+        @if ($kesehatanBadan->tidakCacat)
+            TIDAK CACAT
+        @else
+            <del>TIDAK CACAT</del>
+        @endif    
+        </b> 
     </p>
     <p style="text-align: justify;">
-        Surat Keterangan Sehat ini digunakn sebagai : <b>-- KEPERLUAN SURAT --</b> 
+        Surat Keterangan Sehat ini digunakan sebagai : <b>{{ $kesehatanBadan->keperluanSurat }}</b> 
     </p>
     <p style="text-align: justify;">
         Demikian surat keterangan ini agar dapat dipergunakan sebagaimana mestinya. Terima kasih.  
@@ -302,12 +326,12 @@
         </tr>
         <tr>
             <td>
-                dr. Vegapunk
+                {{ $dokter->nama }}
             </td>
         </tr>
         <tr>
             <td>
-                356878778
+                {{ $dokter->sip }}
             </td>
         </tr>
     </table>
