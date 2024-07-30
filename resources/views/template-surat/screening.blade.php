@@ -240,7 +240,7 @@
 
     <p>Kondisi Klinis :</p>
     <p style="text-align: justify">
-        {{ $screening->hslPemeriksaan }}
+        {!! nl2br(e($screening->hslPemeriksaan)) !!}
     </p>
     <p style="text-align: justify">
         Berdasarkan hasil pemeriksaan kesehatan {{ $screening->jenisScreening }} yang telah dilakukan saat ini, maka dapat disimpulkan bahwa saudara/i {{ $pasien->nama }} memiliki kondisi kesehatan {{ $screening->jenisScreening }} yang <b>

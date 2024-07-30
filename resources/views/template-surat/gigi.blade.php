@@ -258,7 +258,7 @@
             <td style="width: 180px; vertical-align: top;"><b>Kesimpulan & Saran</b></td>
             <td style="vertical-align: top;">:</td>
             <td style="vertical-align: top; text-align: justify;">
-                {{ $gigi->kesimpulan }}
+                {!! nl2br(e($gigi->kesimpulan)) !!}
             </td>
         </tr>
     </table>
