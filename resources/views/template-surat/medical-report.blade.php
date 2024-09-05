@@ -156,27 +156,18 @@
 
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
-        <table class="table-container-nomor">
-            <tr>
-                <td>Nomor</td>
-                <td>:</td>
-                <td>{{ $medicalReport->noSurat }}</td>
-                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
-            </tr>
-            <tr>
-                <td>Lampiran</td>
-                <td>:</td>
-                <td>1 Bendel</td>
-                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
-            </tr>
-            <tr>
-                <td>Hal</td>
-                <td>:</td>
-                <td>Surat Keterangan Kesehatan</td>
-                <td></td>
-            </tr>
-        </table>
-        <br>
+        
+            <x-lampiran-dan-tanggal 
+            noSurat="{{ $medicalReport->noSurat }}" 
+            hal="Surat Keterangan Kesehatan"
+            tanggalHijriyahHari="{{ $tanggalHijriyahHari }}" 
+            tanggalHijriyahBulan="{{ $tanggalHijriyahBulan }}"
+            tanggalHijriyahTahun="{{ $tanggalHijriyahTahun }}"
+            tanggalPemeriksaanHari="{{ $tanggalPemeriksaanHari }}" 
+            tanggalPemeriksaanBulan="{{ $tanggalPemeriksaanBulan }}"
+            tanggalPemeriksaanTahun="{{ $tanggalPemeriksaanTahun }}"
+            ></x-lampiran-dan-tanggal>
+
             <h3><u>MEDICAL REPORT</u></h3>
             <p>Yang bertanda tangan di bawah ini:</p>
             <table class="table-container-atas">
@@ -282,35 +273,137 @@
             <th style="border-top: none; border-right: none; text-align: left">Catatan</th>
         </tr>
         <tr>
-            <td rowspan="5" style="text-align: center; vertical-align: middle; border-left: none;">FIT</td>
-            <td style="text-align: center; vertical-align: middle;">1a</td>
-            <td style="border-right: none;">Fit, tidak dijumpai problem kesehatan</td>
+            <td rowspan="5" style="text-align: center; vertical-align: middle; border-left: none;">
+                @if ($medicalReport->status == '1a' || $medicalReport->status == '1b' || $medicalReport->status == '2' || $medicalReport->status == '3a' || $medicalReport->status == '3b')
+                    <mark>FIT</mark>
+                @else
+                    FIT
+                @endif
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @if ($medicalReport->status == '1a')
+                    <mark>1a</mark>
+                @else
+                    1a
+                @endif
+            </td>
+            <td style="border-right: none;">
+                @if ($medicalReport->status == '1a')
+                    <mark> Fit, tidak dijumpai problem kesehatan</mark>
+                @else
+                    Fit, tidak dijumpai problem kesehatan
+                @endif
+            </td>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align: middle;">1b</td>
-            <td style="border-right: none;">Fit, dijumpai problem kesehatan yang tidak serius</td>
+            <td style="text-align: center; vertical-align: middle;">
+                @if ($medicalReport->status == '1b')
+                    <mark>1b</mark>
+                @else
+                    1b
+                @endif
+            </td>
+            <td style="border-right: none;">
+                @if ($medicalReport->status == '1b')
+                    <mark>Fit, dijumpai problem kesehatan yang tidak serius</mark>
+                @else
+                    Fit, dijumpai problem kesehatan yang tidak serius
+                @endif
+            </td>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align: middle;">2</td>
-            <td style="border-right: none;">Fit, dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Ringan)</td>
+            <td style="text-align: center; vertical-align: middle;">
+                @if ($medicalReport->status == '2')
+                    <mark>2</mark>
+                @else
+                    2
+                @endif
+            </td>
+            <td style="border-right: none;">
+                @if ($medicalReport->status == '2')
+                    <mark>Fit, dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Ringan)</mark>
+                @else
+                    Fit, dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Ringan)
+                @endif
+            </td>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align: middle;">3a</td>
-            <td style="border-right: none;">Dengan problem kesehatan yang dapat menjadi serius (kel. Risiko sedang)</td>
+            <td style="text-align: center; vertical-align: middle;">
+                @if ($medicalReport->status == '3a')
+                    <mark>3a</mark>
+                @else
+                    3a
+                @endif
+            </td>
+            <td style="border-right: none;">
+                @if ($medicalReport->status == '3a')
+                    <mark>Dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Sedang)</mark>
+                @else
+                    Dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Sedang)
+                @endif
+            </td>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align: middle;">3b</td>
-            <td style="border-right: none;">Dengan problem kesehatan yang dapat menjadi serius (kel. Risiko tinggi)</td>
+            <td style="text-align: center; vertical-align: middle;">
+                @if ($medicalReport->status == '3b')
+                    <mark>3b</mark>
+                @else
+                    3b
+                @endif
+            </td>
+            <td style="border-right: none;">
+                @if ($medicalReport->status == '3b')
+                    <mark>Dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Tinggi)</mark>
+                @else
+                    Dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Tinggi)
+                @endif
+            </td>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align: middle; border-left: none;">UNFIT</td>
-            <td style="text-align: center; vertical-align: middle;">4</td>
-            <td style="border-right: none;">unfit, dengan keterbatasan fisik untuk melakukan pekerjaan secara Normal hanya untuk pekerjaan ringan</td>
+            <td style="text-align: center; vertical-align: middle; border-left: none;">
+                @if ($medicalReport->status == '4')
+                    <mark>UNFIT</mark>
+                @else
+                    UNFIT
+                @endif
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @if ($medicalReport->status == '4')
+                    <mark>4</mark>
+                @else
+                    4
+                @endif
+            </td>
+            <td style="border-right: none;">
+                @if ($medicalReport->status == '4')
+                    <mark>Unfit, dengan keterbatasan fisik untuk melakukan pekerjaan secara Normal hanya untuk pekerjaan ringan</mark>
+                @else
+                    Unfit, dengan keterbatasan fisik untuk melakukan pekerjaan secara Normal hanya untuk pekerjaan ringan
+                @endif
+            </td>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align: middle; border-left: none; border-bottom: none;">UNFIT</td>
-            <td style="text-align: center; vertical-align: middle; border-bottom: none;">5</td>
-            <td style="border-right: none; border-bottom: none;">unfit, sedang sakit, perawatan rumah sakit atau dalam kondisi yang tidak memungkinkan untuk melakukan pekerjaan (Status izin sakit)</td>
+            <td style="text-align: center; vertical-align: middle; border-left: none; border-bottom: none;">
+                @if ($medicalReport->status == '5')
+                    <mark>UNFIT</mark>
+                @else
+                    UNFIT
+                @endif
+            </td>
+            <td style="text-align: center; vertical-align: middle; border-bottom: none;">
+                @if ($medicalReport->status == '5')
+                    <mark>5</mark>
+                @else
+                    5
+                @endif
+            </td>
+            <td style="border-right: none; border-bottom: none;">
+                @if ($medicalReport->status == '5')
+                    <mark>Unfit, sedang sakit, perawatan rumah sakit atau dalam kondisi yang tidak memungkinkan untuk melakukan pekerjaan (Status izin sakit)</mark>
+                @else
+                    Unfit, sedang sakit, perawatan rumah sakit atau dalam kondisi yang tidak memungkinkan untuk melakukan pekerjaan (Status izin sakit)
+                @endif
+            </td>
         </tr>
     </table>
 

@@ -57,7 +57,9 @@
             <div>
                 <x-dropdown-input :label="'Dokter Pemeriksa'" labelPilihan='Pilih Dokter' :name="'idDokter'" :id="'idDokter'" :options="$dokter" :readonly="$readonly" :required="true" selectedId="{{ old('idDokter', $audiometri->dokter->id ?? '') }}"></x-dropdown-input>
             </div>
-            <div></div>
+            <div>
+                <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $audiometri->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
+            </div>
             <div>
                 <x-text-area-input label='Hasil Pemeriksaan' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $audiometri->hslPemeriksaan ?? '') }}" :required="true" 
                 :readonly="$readonly" ></x-text-area-input>

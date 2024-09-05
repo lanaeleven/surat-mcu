@@ -40,9 +40,13 @@
             h3 {
                 text-align: center;
             }
+            
+            /* .table-wrapper {
+                width: 100%;
+            } */
 
             .table-container-nomor {
-            width: 100%;
+            /* width: 100%; */
             border-collapse: collapse;
             }
 
@@ -115,27 +119,18 @@
 
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
-        <table class="table-container-nomor">
-            <tr>
-                <td>Nomor</td>
-                <td>:</td>
-                <td>{{ $vaksinasi->noSurat }}</td>
-                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
-            </tr>
-            <tr>
-                <td>Lampiran</td>
-                <td>:</td>
-                <td>1 Bendel</td>
-                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
-            </tr>
-            <tr>
-                <td>Hal</td>
-                <td>:</td>
-                <td>Surat Keterangan Kesehatan</td>
-                <td></td>
-            </tr>
-        </table>
-        <br>
+
+            <x-lampiran-dan-tanggal 
+            noSurat="{{ $vaksinasi->noSurat }}" 
+            hal="Surat Keterangan Kesehatan"
+            tanggalHijriyahHari="{{ $tanggalHijriyahHari }}" 
+            tanggalHijriyahBulan="{{ $tanggalHijriyahBulan }}"
+            tanggalHijriyahTahun="{{ $tanggalHijriyahTahun }}"
+            tanggalPemeriksaanHari="{{ $tanggalPemeriksaanHari }}" 
+            tanggalPemeriksaanBulan="{{ $tanggalPemeriksaanBulan }}"
+            tanggalPemeriksaanTahun="{{ $tanggalPemeriksaanTahun }}"
+            ></x-lampiran-dan-tanggal>
+
             <h3>SURAT KETERANGAN VAKSINASI</h3>
             <p>Yang bertanda tangan di bawah ini:</p>
             <table class="table-container-atas">

@@ -96,9 +96,23 @@ class VaksinasiController extends Controller
         $tanggalPemeriksaan = Carbon::parse($vaksinasi->tanggalPemeriksaan)->translatedFormat('d F Y');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
         $tanggalHijriyah = DateHelper::hijriyah($vaksinasi->tanggalPemeriksaan);
+        list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
+        list($tanggalHijriyahHari, $tanggalHijriyahBulan, $tanggalHijriyahTahun) = explode(' ', $tanggalHijriyah);
         
 
-        $pdf = Pdf::loadView('template-surat.vaksinasi', ['vaksinasi' => $vaksinasi, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir, 'tanggalHijriyah' => $tanggalHijriyah]);
+        $pdf = Pdf::loadView('template-surat.vaksinasi', 
+        ['vaksinasi' => $vaksinasi, 
+        'pasien' => $pasien, 
+        'dokter' => $dokter, 
+        'umur' => $umur, 
+        'tanggalLahir' => $tanggalLahir, 
+        'tanggalPemeriksaanHari' => $tanggalPemeriksaanHari, 
+        'tanggalPemeriksaanBulan' => $tanggalPemeriksaanBulan, 
+        'tanggalPemeriksaanTahun' => $tanggalPemeriksaanTahun, 
+        'tanggalHijriyahHari' => $tanggalHijriyahHari,
+        'tanggalHijriyahBulan' => $tanggalHijriyahBulan,
+        'tanggalHijriyahTahun' => $tanggalHijriyahTahun,
+    ]);
         return $pdf->stream("Surat Keterangan Vaksinasi " . $pasien->nama . " (" . $pasien->noRM . ").pdf");
     }
 }

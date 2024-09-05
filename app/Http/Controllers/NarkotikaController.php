@@ -112,8 +112,17 @@ class NarkotikaController extends Controller
         $tanggalPemeriksaan = Carbon::parse($narkotika->tanggalPemeriksaan)->translatedFormat('d F Y');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
         $tanggalHijriyah = DateHelper::hijriyah($narkotika->tanggalPemeriksaan);
+        list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
+        list($tanggalHijriyahHari, $tanggalHijriyahBulan, $tanggalHijriyahTahun) = explode(' ', $tanggalHijriyah);
         
-        $pdf = Pdf::loadView('template-surat.narkotika', ['narkotika' => $narkotika, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir, 'tanggalHijriyah' => $tanggalHijriyah]);
+        $pdf = Pdf::loadView('template-surat.narkotika', ['narkotika' => $narkotika, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir, 
+        'tanggalPemeriksaanHari' => $tanggalPemeriksaanHari, 
+        'tanggalPemeriksaanBulan' => $tanggalPemeriksaanBulan, 
+        'tanggalPemeriksaanTahun' => $tanggalPemeriksaanTahun, 
+        'tanggalHijriyahHari' => $tanggalHijriyahHari,
+        'tanggalHijriyahBulan' => $tanggalHijriyahBulan,
+        'tanggalHijriyahTahun' => $tanggalHijriyahTahun,
+        ]);
         return $pdf->stream("Surat Keterangan Hasil Pemeriksaan Narkotika " . $pasien->nama . " (" . $pasien->noRM . ").pdf");
     }
 }

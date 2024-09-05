@@ -10,18 +10,18 @@ class DateHelper
     {
         // Array nama bulan Hijriyah dalam huruf Latin
         $latinMonths = [
-            'Muharram',
-            'Safar',
-            'Rabi al-Awwal',
-            'Rabi al-Thani',
-            'Jumada al-Awwal',
-            'Jumada al-Thani',
-            'Rajab',
-            "Sha'ban",
-            'Ramadan',
-            'Shawwal',
-            "Dhu al-Qi'dah",
-            'Dhu al-Hijjah'
+            "Muharam",
+            "Safar",
+            "Rabiulawal",
+            "Rabiulakhir",
+            "Jumadilawal",
+            "Jumadilakhir",
+            "Rajab",
+            "Syakban",
+            "Ramadan",
+            "Syawal",
+            "Zulkaidah",
+            "Zulhijah"
         ];
     
         $hijriDate = Hijri::ShortDate($date); // dapat hasil 1446/01/19

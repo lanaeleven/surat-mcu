@@ -46,7 +46,12 @@ class MedicalReportController extends Controller
             'imt' => 'required',
             'hslPemeriksaan' => 'required',
             'saran' => 'required',
+            'status' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
+        
         $medicalReport = MedicalReport::create($validatedData);
         return redirect()->route('medicalReport.show', ['medicalReport' => $medicalReport->id])->with('success', "Data Pasien Berhasil Ditambahkan");
     }
@@ -89,6 +94,10 @@ class MedicalReportController extends Controller
             'imt' => 'required',
             'hslPemeriksaan' => 'required',
             'saran' => 'required',
+            'status' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $medicalReport->update($validatedData);
         return redirect()->route('medicalReport.show', ['medicalReport' => $medicalReport->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -110,9 +119,20 @@ class MedicalReportController extends Controller
         Carbon::setLocale('id');
         $tanggalPemeriksaan = Carbon::parse($medicalReport->tanggalPemeriksaan)->translatedFormat('d F Y');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
-        $tanggalHijriyah = DateHelper::hijriyah($medicalReport->tanggalPemeriksaan);
+        $tanggalHijriyahHari = $medicalReport->hariHijriyah;
+        $tanggalHijriyahBulan = $medicalReport->bulanHijriyah;
+        $tanggalHijriyahTahun = $medicalReport->tahunHijriyah;
+        list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
         
-        $pdf = Pdf::loadView('template-surat.medical-report', ['medicalReport' => $medicalReport, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir, 'tanggalHijriyah' => $tanggalHijriyah]);
+        
+        $pdf = Pdf::loadView('template-surat.medical-report', ['medicalReport' => $medicalReport, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir, 
+        'tanggalPemeriksaanHari' => $tanggalPemeriksaanHari, 
+        'tanggalPemeriksaanBulan' => $tanggalPemeriksaanBulan, 
+        'tanggalPemeriksaanTahun' => $tanggalPemeriksaanTahun, 
+        'tanggalHijriyahHari' => $tanggalHijriyahHari,
+        'tanggalHijriyahBulan' => $tanggalHijriyahBulan,
+        'tanggalHijriyahTahun' => $tanggalHijriyahTahun,
+        ]);
         return $pdf->stream("Medical Report " . $pasien->nama . " (" . $pasien->noRM . ").pdf");
     }
 }

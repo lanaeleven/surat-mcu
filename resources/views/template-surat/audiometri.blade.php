@@ -135,6 +135,11 @@
             <td>:</td>
             <td>{{ $pasien->noRM }}</td>
         </tr>
+        <tr>
+            <td>Tanggal Pemeriksaan</td>
+            <td>:</td>
+            <td>{{ $tanggalPemeriksaan }}</td>
+        </tr>
     </table>
 
     <br><hr><br>

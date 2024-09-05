@@ -3,6 +3,15 @@
 @if (session()->has('success'))
 <x-alert-dismiss>{{ session('success') }}</x-alert-dismiss>
 @endif
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <div class="flex bg-white p-5 items-center rounded-lg mb-5">
     <div class="flex-none w-24">
@@ -57,12 +66,28 @@
             <div>
                 <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $medicalReport->noSurat ?? '') }}" :required="true" :readonly="$readonly">Nomor Surat</x-text-input>
             </div>
-            <div></div>
+            <div>
+                <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $medicalReport->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
+            </div>
             <div>
                 <x-dropdown-input :label="'Dokter Pemeriksa'" labelPilihan='Pilih Dokter' :name="'idDokter'" :id="'idDokter'" :options="$dokter" :readonly="$readonly" :required="true" selectedId="{{ old('idDokter', $medicalReport->dokter->id ?? '') }}"></x-dropdown-input>
             </div>
             <div>
-                <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $medicalReport->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
+                <label for="hariHijriyah" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Hijriyah</label>
+            <div class="mt-2 flex">
+            <input type="number" name="hariHijriyah" id="hariHijriyah" placeholder="tgl" value="{{ old('hariHijriyah', $medicalReport->hariHijriyah ?? '') }}" class="block w-20 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
+            required
+            @if ($readonly) disabled @endif 
+            >
+            <input type="text" name="bulanHijriyah" id="bulanHijriyah" placeholder="bulan" value="{{ old('bulanHijriyah', $medicalReport->bulanHijriyah ?? '') }}" class="block w-40 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
+            required
+            @if ($readonly) disabled @endif 
+            >
+            <input type="number" name="tahunHijriyah" id="tahunHijriyah" placeholder="tahun" value="{{ old('tahunHijriyah', $medicalReport->tahunHijriyah ?? '') }}" class="block w-24 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
+            required
+            @if ($readonly) disabled @endif 
+            >
+            </div>
             </div>
         </div>
 
@@ -97,7 +122,25 @@
 
         <hr>
 
-        <div class="grid grid-cols-2 gap-x-6 gap-y-4 mt-6">
+        @php
+            $optionsStatus = [
+                ['id' => '1a', 'value' => '1a', 'label' => '1a - Fit, tidak dijumpai problem kesehatan'],
+                ['id' => '1b', 'value' => '1b', 'label' => '1b - Fit, dijumpai problem kesehatan yang tidak serius'],
+                ['id' => '2', 'value' => '2', 'label' => '2 - Fit, dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Ringan)'],
+                ['id' => '3a', 'value' => '3a', 'label' => '3a - Dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Sedang)'],
+                ['id' => '3b', 'value' => '3b', 'label' => '3b - Dengan problem kesehatan yang dapat menjadi serius (kel. Risiko Tinggi)'],
+                ['id' => '4', 'value' => '4', 'label' => '4 - Unfit, dengan keterbatasan fisik untuk melakukan pekerjaan secara Normal hanya untuk pekerjaan ringan'],
+                ['id' => '5', 'value' => '5', 'label' => '5 - Unfit, sedang sakit, perawatan rumah sakit atau dalam kondisi yang tidak memungkinkan untuk melakukan pekerjaan (Status izin sakit)'],
+            ];
+        @endphp
+
+        <div class="mt-6">
+            <x-radio-button-input name="status" checked="{{ old('status', $medicalReport->status ?? '') }}" :options="$optionsStatus" :required="true" :readonly="$readonly">Status</x-radio-button-input>
+        </div>
+
+        
+
+        <div class="grid grid-cols-2 gap-x-6 gap-y-4 mt-3">
 
             <div>
                 <x-text-area-input label='Kondisi Klinis' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $medicalReport->hslPemeriksaan ?? '') }}" :required="true" 

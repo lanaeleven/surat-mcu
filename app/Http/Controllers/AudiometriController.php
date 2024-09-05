@@ -34,6 +34,7 @@ class AudiometriController extends Controller
             'idDokter' => 'required',
             'hslPemeriksaan' => 'required',
             'kesimpulan' => 'required',
+            'tanggalPemeriksaan' => 'required',
         ]);
         $audiometri = Audiometri::create($validatedData);
         return redirect()->route('audiometri.show', ['audiometri' => $audiometri->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -65,6 +66,7 @@ class AudiometriController extends Controller
             'idDokter' => 'required',
             'hslPemeriksaan' => 'required',
             'kesimpulan' => 'required',
+            'tanggalPemeriksaan' => 'required',
         ]);
         $audiometri->update($validatedData);
         return redirect()->route('audiometri.show', ['audiometri' => $audiometri->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -85,8 +87,9 @@ class AudiometriController extends Controller
 
         Carbon::setLocale('id');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
+        $tanggalPemeriksaan = Carbon::parse($audiometri->tanggalPemeriksaan)->translatedFormat('d F Y');
 
-        $pdf = Pdf::loadView('template-surat.audiometri', ['audiometri' => $audiometri, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalLahir' => $tanggalLahir]);
+        $pdf = Pdf::loadView('template-surat.audiometri', ['audiometri' => $audiometri, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalLahir' => $tanggalLahir, 'tanggalPemeriksaan' => $tanggalPemeriksaan]);
         return $pdf->stream("Hasil Pemeriksaan Audiometri " . $pasien->nama . " (" . $pasien->noRM . ").pdf");
     }
 }

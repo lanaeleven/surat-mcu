@@ -14,16 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Pasien::factory(35)->create();
+        // \App\Models\Pasien::factory(35)->create();
 
         DB::table('dokter')->insert([
-            'nama' => 'dr. Vegapunk',
-            'sip' => '123456',
+            'nama' => "dr. Dewi Febriana Nursari",
+            'sip' => "No. 503/095/SIPD/DPMPTSP/III/2023",
         ]);
 
         DB::table('dokter')->insert([
-            'nama' => 'dr. Tony Tony Chopper',
-            'sip' => '654321',
+            'nama' => "dr. Sujudynaraja Mu'minin",
+            'sip' => "No. 503/180/DPMPTSP/VII/2023",
         ]);
 
         DB::table('users')->insert([

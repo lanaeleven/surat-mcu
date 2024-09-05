@@ -178,27 +178,18 @@
 
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
-        <table class="table-container-nomor">
-            <tr>
-                <td>Nomor</td>
-                <td>:</td>
-                <td>{{ $narkotika->noSurat }}</td>
-                <td style="text-align: right;">Banjarbaru, {{ $tanggalHijriyah }} H</td>
-            </tr>
-            <tr>
-                <td>Lampiran</td>
-                <td>:</td>
-                <td>1 Bendel</td>
-                <td style="text-align: right;">{{ $tanggalPemeriksaan }} M</td>
-            </tr>
-            <tr>
-                <td>Hal</td>
-                <td>:</td>
-                <td>Surat Keterangan Hasil Pemeriksaan Narkotika</td>
-                <td></td>
-            </tr>
-        </table>
-        <br>
+        
+            <x-lampiran-dan-tanggal 
+            noSurat="{{ $narkotika->noSurat }}" 
+            hal="Surat Keterangan Hasil Pemeriksaan Narkotika"
+            tanggalHijriyahHari="{{ $tanggalHijriyahHari }}" 
+            tanggalHijriyahBulan="{{ $tanggalHijriyahBulan }}"
+            tanggalHijriyahTahun="{{ $tanggalHijriyahTahun }}"
+            tanggalPemeriksaanHari="{{ $tanggalPemeriksaanHari }}" 
+            tanggalPemeriksaanBulan="{{ $tanggalPemeriksaanBulan }}"
+            tanggalPemeriksaanTahun="{{ $tanggalPemeriksaanTahun }}"
+            ></x-lampiran-dan-tanggal>
+
         <h3>SURAT KETERANGAN HASIL PEMERIKSAAN NARKOTIKA</h3>
             <p>Diterangkan bersama ini bahwa:</p>
             <table class="table-container-atas">
