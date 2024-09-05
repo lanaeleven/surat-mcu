@@ -39,6 +39,9 @@ class VaksinasiController extends Controller
             'noSurat' => 'required',
             'jenisVaksin' => 'required',
             'tujuanVaksin' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $vaksinasi = Vaksinasi::create($validatedData);
         return redirect()->route('vaksinasi.show', ['vaksinasi' => $vaksinasi->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -74,6 +77,9 @@ class VaksinasiController extends Controller
             'noSurat' => 'required',
             'jenisVaksin' => 'required',
             'tujuanVaksin' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $vaksinasi->update($validatedData);
         return redirect()->route('vaksinasi.show', ['vaksinasi' => $vaksinasi->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -95,9 +101,10 @@ class VaksinasiController extends Controller
         Carbon::setLocale('id');
         $tanggalPemeriksaan = Carbon::parse($vaksinasi->tanggalPemeriksaan)->translatedFormat('d F Y');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
-        $tanggalHijriyah = DateHelper::hijriyah($vaksinasi->tanggalPemeriksaan);
+        $tanggalHijriyahHari = $vaksinasi->hariHijriyah;
+        $tanggalHijriyahBulan = $vaksinasi->bulanHijriyah;
+        $tanggalHijriyahTahun = $vaksinasi->tahunHijriyah;
         list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
-        list($tanggalHijriyahHari, $tanggalHijriyahBulan, $tanggalHijriyahTahun) = explode(' ', $tanggalHijriyah);
         
 
         $pdf = Pdf::loadView('template-surat.vaksinasi', 

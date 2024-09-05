@@ -48,6 +48,9 @@ class GiziController extends Controller
             'statusGizi' => 'required',
             'rekomTerapiGizi' => 'required',
             'saran' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $gizi = Gizi::create($validatedData);
         return redirect()->route('gizi.show', ['gizi' => $gizi->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -93,6 +96,9 @@ class GiziController extends Controller
             'statusGizi' => 'required',
             'rekomTerapiGizi' => 'required',
             'saran' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $gizi->update($validatedData);
         return redirect()->route('gizi.show', ['gizi' => $gizi->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -114,9 +120,10 @@ class GiziController extends Controller
         Carbon::setLocale('id');
         $tanggalPemeriksaan = Carbon::parse($gizi->tanggalPemeriksaan)->translatedFormat('d F Y');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
-        $tanggalHijriyah = DateHelper::hijriyah($gizi->tanggalPemeriksaan);
+        $tanggalHijriyahHari = $gizi->hariHijriyah;
+        $tanggalHijriyahBulan = $gizi->bulanHijriyah;
+        $tanggalHijriyahTahun = $gizi->tahunHijriyah;
         list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
-        list($tanggalHijriyahHari, $tanggalHijriyahBulan, $tanggalHijriyahTahun) = explode(' ', $tanggalHijriyah);
         
 
         $pdf = Pdf::loadView('template-surat.gizi', 

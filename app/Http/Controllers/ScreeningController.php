@@ -40,6 +40,9 @@ class ScreeningController extends Controller
             'jenisScreening' => 'required',
             'hslPemeriksaan' => 'required',
             'statusKesehatan' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $screening = Screening::create($validatedData);
         return redirect()->route('screening.show', ['screening' => $screening->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -77,6 +80,9 @@ class ScreeningController extends Controller
             'jenisScreening' => 'required',
             'hslPemeriksaan' => 'required',
             'statusKesehatan' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $screening->update($validatedData);
         return redirect()->route('screening.show', ['screening' => $screening->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -98,9 +104,10 @@ class ScreeningController extends Controller
         Carbon::setLocale('id');
         $tanggalPemeriksaan = Carbon::parse($screening->tanggalPemeriksaan)->translatedFormat('d F Y');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
-        $tanggalHijriyah = DateHelper::hijriyah($screening->tanggalPemeriksaan);
+        $tanggalHijriyahHari = $screening->hariHijriyah;
+        $tanggalHijriyahBulan = $screening->bulanHijriyah;
+        $tanggalHijriyahTahun = $screening->tahunHijriyah;
         list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
-        list($tanggalHijriyahHari, $tanggalHijriyahBulan, $tanggalHijriyahTahun) = explode(' ', $tanggalHijriyah);
         
 
         $pdf = Pdf::loadView('template-surat.screening', ['screening' => $screening, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir, 

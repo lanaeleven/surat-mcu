@@ -47,6 +47,9 @@ class NarkotikaController extends Controller
             'amphetamine' => 'required|boolean',
             'kesimpulan' => 'required|boolean',
             'keperluanSurat' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $narkotika = Narkotika::create($validatedData);
         return redirect()->route('narkotika.show', ['narkotika' => $narkotika->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -90,6 +93,9 @@ class NarkotikaController extends Controller
             'amphetamine' => 'required|boolean',
             'kesimpulan' => 'required|boolean',
             'keperluanSurat' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $narkotika->update($validatedData);
         return redirect()->route('narkotika.show', ['narkotika' => $narkotika->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -111,9 +117,10 @@ class NarkotikaController extends Controller
         Carbon::setLocale('id');
         $tanggalPemeriksaan = Carbon::parse($narkotika->tanggalPemeriksaan)->translatedFormat('d F Y');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
-        $tanggalHijriyah = DateHelper::hijriyah($narkotika->tanggalPemeriksaan);
+        $tanggalHijriyahHari = $narkotika->hariHijriyah;
+        $tanggalHijriyahBulan = $narkotika->bulanHijriyah;
+        $tanggalHijriyahTahun = $narkotika->tahunHijriyah;
         list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
-        list($tanggalHijriyahHari, $tanggalHijriyahBulan, $tanggalHijriyahTahun) = explode(' ', $tanggalHijriyah);
         
         $pdf = Pdf::loadView('template-surat.narkotika', ['narkotika' => $narkotika, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir, 
         'tanggalPemeriksaanHari' => $tanggalPemeriksaanHari, 

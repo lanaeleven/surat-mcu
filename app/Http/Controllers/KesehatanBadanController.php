@@ -50,6 +50,9 @@ class KesehatanBadanController extends Controller
             'cacat' => 'required|boolean',
             'tidakCacat' => 'required|boolean',
             'keperluanSurat' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $kesehatanBadan = KesehatanBadan::create($validatedData);
         return redirect()->route('kesehatanBadan.show', ['kesehatanBadan' => $kesehatanBadan->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -96,6 +99,9 @@ class KesehatanBadanController extends Controller
             'cacat' => 'required|boolean',
             'tidakCacat' => 'required|boolean',
             'keperluanSurat' => 'required',
+            'hariHijriyah' => 'required',
+            'bulanHijriyah' => 'required',
+            'tahunHijriyah' => 'required',
         ]);
         $kesehatanBadan->update($validatedData);
         return redirect()->route('kesehatanBadan.show', ['kesehatanBadan' => $kesehatanBadan->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -117,9 +123,10 @@ class KesehatanBadanController extends Controller
         Carbon::setLocale('id');
         $tanggalPemeriksaan = Carbon::parse($kesehatanBadan->tanggalPemeriksaan)->translatedFormat('d F Y');
         $tanggalLahir = Carbon::parse($pasien->tanggalLahir)->translatedFormat('d F Y');
-        $tanggalHijriyah = DateHelper::hijriyah($kesehatanBadan->tanggalPemeriksaan);
+        $tanggalHijriyahHari = $kesehatanBadan->hariHijriyah;
+        $tanggalHijriyahBulan = $kesehatanBadan->bulanHijriyah;
+        $tanggalHijriyahTahun = $kesehatanBadan->tahunHijriyah;
         list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
-        list($tanggalHijriyahHari, $tanggalHijriyahBulan, $tanggalHijriyahTahun) = explode(' ', $tanggalHijriyah);
         
         $pdf = Pdf::loadView('template-surat.kesehatan-badan', ['kesehatanBadan' => $kesehatanBadan, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir,
         'tanggalPemeriksaanHari' => $tanggalPemeriksaanHari, 

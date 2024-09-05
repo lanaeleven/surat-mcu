@@ -58,14 +58,32 @@
                 <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $narkotika->noSurat ?? '') }}" :required="true" :readonly="$readonly">Nomor Surat</x-text-input>
             </div>
             <div>
-                <x-text-input name="pekerjaanPasien" id="pekerjaanPasien" value="{{ old('pekerjaanPasien', $narkotika->pekerjaanPasien ?? '') }}" :required="true" :readonly="$readonly">Pekerjaan Pasien</x-text-input>
+                <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $narkotika->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
             </div>
             <div>
                 <x-dropdown-input :label="'Dokter Pemeriksa'" labelPilihan='Pilih Dokter' :name="'idDokter'" :id="'idDokter'" :options="$dokter" :readonly="$readonly" :required="true" selectedId="{{ old('idDokter', $narkotika->dokter->id ?? '') }}"></x-dropdown-input>
             </div>
             <div>
-                <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $narkotika->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
+                <label for="hariHijriyah" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Hijriyah</label>
+            <div class="mt-2 flex">
+            <input type="number" name="hariHijriyah" id="hariHijriyah" placeholder="tgl" value="{{ old('hariHijriyah', $narkotika->hariHijriyah ?? '') }}" class="block w-20 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
+            required
+            @if ($readonly) disabled @endif 
+            >
+            <input type="text" name="bulanHijriyah" id="bulanHijriyah" placeholder="bulan" value="{{ old('bulanHijriyah', $narkotika->bulanHijriyah ?? '') }}" class="block w-40 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
+            required
+            @if ($readonly) disabled @endif 
+            >
+            <input type="number" name="tahunHijriyah" id="tahunHijriyah" placeholder="tahun" value="{{ old('tahunHijriyah', $narkotika->tahunHijriyah ?? '') }}" class="block w-24 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
+            required
+            @if ($readonly) disabled @endif 
+            >
             </div>
+            </div>
+            <div>
+                <x-text-input name="pekerjaanPasien" id="pekerjaanPasien" value="{{ old('pekerjaanPasien', $narkotika->pekerjaanPasien ?? '') }}" :required="true" :readonly="$readonly">Pekerjaan Pasien</x-text-input>
+            </div>
+            
             <div>
                 <x-text-input name="keperluanSurat" id="keperluanSurat" value="{{ old('keperluanSurat', $narkotika->keperluanSurat ?? '') }}" :required="true" :readonly="$readonly">Keperluan Surat</x-text-input>
             </div>
