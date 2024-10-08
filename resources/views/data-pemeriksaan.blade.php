@@ -22,7 +22,7 @@
       <h3 class="text-center text-xl">Tidak terdapat data pemeriksaan</h3>
   @else
   <div class="mt-5">
-    <x-table :headers="['Pasien', 'Dokter Pemeriksa', 'Tanggal Terakhir diedit', 'Aksi']">
+    <x-table :headers="['Pasien', 'Dokter Pemeriksa', 'Tanggal Pemeriksaan', 'Tanggal Terakhir diedit', 'Aksi']">
       @foreach ($dataPemeriksaan as $dp)
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-600">
         <td class="px-6 py-4">
@@ -31,6 +31,9 @@
         <td class="px-6 py-4">
           {{ $dp->dokter->nama }}
         </td>   
+        <td class="px-6 py-4">
+          {{ $dp->tanggalPemeriksaan }}
+        </td>      
         <td class="px-6 py-4">
           {{ $dp->updated_at }}
         </td>      
@@ -74,7 +77,7 @@
           <form action="{{ $routeHapus }}" method="POST">
             @csrf
             @method('DELETE')
-          <x-blue-link-button href="{{ $routeCetak }}">Cetak Data</x-blue-link-button>
+          <x-blue-link-button href="{{ $routeCetak }}">Lihat Data</x-blue-link-button>
             <x-red-submit-button href="{{ $routeHapus }}" konfirmasi='Apakah Anda yakin ingin menghapus data ini?' >Hapus data</x-red-submit-button>
           </form>
       </td>

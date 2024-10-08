@@ -64,7 +64,7 @@
         <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-6">
             <input type="hidden" name="idPasien" value="{{ $pasien->id }}" >
             <div>
-                <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $medicalReport->noSurat ?? '') }}" :required="true" :readonly="$readonly">Nomor Surat</x-text-input>
+                <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $medicalReport->noSurat ?? '') }}" :required="false" :readonly="$readonly">Nomor Surat</x-text-input>
             </div>
             <div>
                 <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $medicalReport->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
@@ -76,15 +76,15 @@
                 <label for="hariHijriyah" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Hijriyah</label>
             <div class="mt-2 flex">
             <input type="number" name="hariHijriyah" id="hariHijriyah" placeholder="tgl" value="{{ old('hariHijriyah', $medicalReport->hariHijriyah ?? '') }}" class="block w-20 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
-            required
+            
             @if ($readonly) disabled @endif 
             >
             <input type="text" name="bulanHijriyah" id="bulanHijriyah" placeholder="bulan" value="{{ old('bulanHijriyah', $medicalReport->bulanHijriyah ?? '') }}" class="block w-40 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
-            required
+            
             @if ($readonly) disabled @endif 
             >
             <input type="number" name="tahunHijriyah" id="tahunHijriyah" placeholder="tahun" value="{{ old('tahunHijriyah', $medicalReport->tahunHijriyah ?? '') }}" class="block w-24 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-            required
+            
             @if ($readonly) disabled @endif 
             >
             </div>
@@ -95,28 +95,28 @@
 
         <div class="grid grid-cols-4 gap-x-32 gap-y-4 my-6">
             <div>
-                <x-text-input name="tinggiBadan" id="tinggiBadan" value="{{ old('tinggiBadan', $medicalReport->tinggiBadan ?? '') }}" :required="true" :readonly="$readonly">Tinggi Badan (cm)</x-text-input>
+                <x-text-input name="tinggiBadan" id="tinggiBadan" value="{{ old('tinggiBadan', $medicalReport->tinggiBadan ?? '') }}" :required="false" :readonly="$readonly">Tinggi Badan (cm)</x-text-input>
             </div>
             <div>
-                <x-text-input name="denyutNadi" id="denyutNadi" value="{{ old('denyutNadi', $medicalReport->denyutNadi ?? '') }}" :required="true" :readonly="$readonly">Denyut Nadi (x/menit)</x-text-input>
+                <x-text-input name="denyutNadi" id="denyutNadi" value="{{ old('denyutNadi', $medicalReport->denyutNadi ?? '') }}" :required="false" :readonly="$readonly">Denyut Nadi (x/menit)</x-text-input>
             </div>
             <div>
-                <x-text-input name="tekananDarah" id="tekananDarah" value="{{ old('tekananDarah', $medicalReport->tekananDarah ?? '') }}" :required="true" :readonly="$readonly">Tekanan Darah (mmHg)</x-text-input>
+                <x-text-input name="tekananDarah" id="tekananDarah" value="{{ old('tekananDarah', $medicalReport->tekananDarah ?? '') }}" :required="false" :readonly="$readonly">Tekanan Darah (mmHg)</x-text-input>
             </div>
             <div>
-                <x-text-input name="spo2" id="spo2" value="{{ old('spo2', $medicalReport->spo2 ?? '') }}" :required="true" :readonly="$readonly">SPO2 (%)</x-text-input>
+                <x-text-input name="spo2" id="spo2" value="{{ old('spo2', $medicalReport->spo2 ?? '') }}" :required="false" :readonly="$readonly">SPO2 (%)</x-text-input>
             </div>
             <div>
-                <x-text-input name="beratBadan" id="beratBadan" value="{{ old('beratBadan', $medicalReport->beratBadan ?? '') }}" :required="true" :readonly="$readonly">Berat Badan (Kg)</x-text-input>
+                <x-text-input name="beratBadan" id="beratBadan" value="{{ old('beratBadan', $medicalReport->beratBadan ?? '') }}" :required="false" :readonly="$readonly">Berat Badan (Kg)</x-text-input>
             </div>
             <div>
-                <x-text-input name="frekuensiNafas" id="frekuensiNafas" value="{{ old('frekuensiNafas', $medicalReport->frekuensiNafas ?? '') }}" :required="true" :readonly="$readonly">Frekuensi Nafas (x/menit)</x-text-input>
+                <x-text-input name="frekuensiNafas" id="frekuensiNafas" value="{{ old('frekuensiNafas', $medicalReport->frekuensiNafas ?? '') }}" :required="false" :readonly="$readonly">Frekuensi Nafas (x/menit)</x-text-input>
             </div>
             <div>
-                <x-text-input name="suhuBadan" id="suhuBadan" value="{{ old('suhuBadan', $medicalReport->suhuBadan ?? '') }}" :required="true" :readonly="$readonly">Suhu Badan (<span>&deg;</span>C) </x-text-input>
+                <x-text-input name="suhuBadan" id="suhuBadan" value="{{ old('suhuBadan', $medicalReport->suhuBadan ?? '') }}" :required="false" :readonly="$readonly">Suhu Badan (<span>&deg;</span>C) </x-text-input>
             </div>
             <div>
-                <x-text-input name="imt" id="imt" value="{{ old('imt', $medicalReport->imt ?? '') }}" :required="true" :readonly="$readonly">IMT (kg/m<sup>2</sup>)</x-text-input>
+                <x-text-input name="imt" id="imt" value="{{ old('imt', $medicalReport->imt ?? '') }}" :required="false" :readonly="$readonly">IMT (kg/m<sup>2</sup>)</x-text-input>
             </div>
         </div>
 
@@ -135,7 +135,7 @@
         @endphp
 
         <div class="mt-6">
-            <x-radio-button-input name="status" checked="{{ old('status', $medicalReport->status ?? '') }}" :options="$optionsStatus" :required="true" :readonly="$readonly">Status</x-radio-button-input>
+            <x-radio-button-input name="status" checked="{{ old('status', $medicalReport->status ?? '') }}" :options="$optionsStatus" :required="false" :readonly="$readonly">Status</x-radio-button-input>
         </div>
 
         
@@ -143,11 +143,11 @@
         <div class="grid grid-cols-2 gap-x-6 gap-y-4 mt-3">
 
             <div>
-                <x-text-area-input label='Kondisi Klinis' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $medicalReport->hslPemeriksaan ?? '') }}" :required="true" 
+                <x-text-area-input label='Kondisi Klinis' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $medicalReport->hslPemeriksaan ?? '') }}" :required="false" 
                 :readonly="$readonly" ></x-text-area-input>
             </div>
             <div>
-                <x-text-area-input label='Rekomendasi / Saran' id='saran' name='saran' value="{{ old('saran', $medicalReport->saran ?? '') }}" :required="true" 
+                <x-text-area-input label='Rekomendasi / Saran' id='saran' name='saran' value="{{ old('saran', $medicalReport->saran ?? '') }}" :required="false" 
                 :readonly="$readonly" ></x-text-area-input>
             </div>
         </div>
