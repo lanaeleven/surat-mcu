@@ -3,6 +3,11 @@
 @if (session()->has('success'))
 <x-alert-dismiss>{{ session('success') }}</x-alert-dismiss>
 @endif
+
+@if (session('alert'))
+<x-alert-danger>{{ session('alert') }}</x-alert-danger>
+@endif
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -12,6 +17,7 @@
         </ul>
     </div>
 @endif
+
 
 <div class="flex bg-white p-5 items-center rounded-lg mb-5">
     <div class="flex-none w-24">

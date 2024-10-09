@@ -37,6 +37,10 @@ class Pasien extends Model
         return $this->hasMany(Screening::class, 'idPasien');
     }
 
+    public function kesehatanBadan(): HasMany {
+        return $this->hasMany(KesehatanBadan::class, 'idPasien');
+    }
+
     public function narkotika(): HasMany {
         return $this->hasMany(Narkotika::class, 'idPasien');
     }

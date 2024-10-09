@@ -112,6 +112,17 @@ class MedicalReportController extends Controller
     }
 
     public function generate(MedicalReport $medicalReport) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($medicalReport);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });        
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+        
+
         $pasien = Pasien::find($medicalReport->idPasien);
         $dokter = Dokter::find($medicalReport->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;

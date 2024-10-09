@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use App\Models\MedicalReport;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -60,6 +61,17 @@ class PasienController extends Controller
 
     public function indexSurat(Pasien $pasien) {
         $title = 'BUAT SURAT';
-        return view('surat-index', compact('title', 'pasien'));
+        $audiometriCount = $pasien->audiometri()->count();
+        $spirometriCount = $pasien->spirometri()->count();
+        $vaksinasiCount = $pasien->vaksinasi()->count();
+        $giziCount = $pasien->gizi()->count();
+        $medicalReportCount = $pasien->medicalReport()->count();
+        $gigiCount = $pasien->gigi()->count();
+        $screeningCount = $pasien->screening()->count();
+        $kesehatanBadanCount = $pasien->kesehatanBadan()->count();
+        $narkotikaCount = $pasien->narkotika()->count();
+        $treadmillCount = $pasien->treadmill()->count();
+        
+        return view('surat-index', compact('title', 'pasien', 'audiometriCount', 'spirometriCount', 'vaksinasiCount', 'giziCount', 'medicalReportCount', 'gigiCount', 'screeningCount', 'kesehatanBadanCount', 'narkotikaCount', 'treadmillCount'));
     }
 }
