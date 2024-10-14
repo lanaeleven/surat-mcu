@@ -36,23 +36,23 @@ class KesehatanBadanController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'tinggiBadan' => 'required',
-            'denyutNadi' => 'required',
-            'tekananDarah' => 'required',
-            'spo2' => 'required',
-            'beratBadan' => 'required',
-            'frekuensiNafas' => 'required',
-            'suhuBadan' => 'required',
-            'imt' => 'required',
-            'sehat' => 'required|boolean',
-            'sakit' => 'required|boolean',
-            'cacat' => 'required|boolean',
-            'tidakCacat' => 'required|boolean',
-            'keperluanSurat' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'tinggiBadan' => 'nullable',
+            'denyutNadi' => 'nullable',
+            'tekananDarah' => 'nullable',
+            'spo2' => 'nullable',
+            'beratBadan' => 'nullable',
+            'frekuensiNafas' => 'nullable',
+            'suhuBadan' => 'nullable',
+            'imt' => 'nullable',
+            'sehat' => 'nullable|boolean',
+            'sakit' => 'nullable|boolean',
+            'cacat' => 'nullable|boolean',
+            'tidakCacat' => 'nullable|boolean',
+            'keperluanSurat' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $kesehatanBadan = KesehatanBadan::create($validatedData);
         return redirect()->route('kesehatanBadan.show', ['kesehatanBadan' => $kesehatanBadan->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -85,23 +85,23 @@ class KesehatanBadanController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'tinggiBadan' => 'required',
-            'denyutNadi' => 'required',
-            'tekananDarah' => 'required',
-            'spo2' => 'required',
-            'beratBadan' => 'required',
-            'frekuensiNafas' => 'required',
-            'suhuBadan' => 'required',
-            'imt' => 'required',
-            'sehat' => 'required|boolean',
-            'sakit' => 'required|boolean',
-            'cacat' => 'required|boolean',
-            'tidakCacat' => 'required|boolean',
-            'keperluanSurat' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'tinggiBadan' => 'nullable',
+            'denyutNadi' => 'nullable',
+            'tekananDarah' => 'nullable',
+            'spo2' => 'nullable',
+            'beratBadan' => 'nullable',
+            'frekuensiNafas' => 'nullable',
+            'suhuBadan' => 'nullable',
+            'imt' => 'nullable',
+            'sehat' => 'nullable|boolean',
+            'sakit' => 'nullable|boolean',
+            'cacat' => 'nullable|boolean',
+            'tidakCacat' => 'nullable|boolean',
+            'keperluanSurat' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $kesehatanBadan->update($validatedData);
         return redirect()->route('kesehatanBadan.show', ['kesehatanBadan' => $kesehatanBadan->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -116,6 +116,16 @@ class KesehatanBadanController extends Controller
     }
 
     public function generate(KesehatanBadan $kesehatanBadan) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($kesehatanBadan);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($kesehatanBadan->idPasien);
         $dokter = Dokter::find($kesehatanBadan->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;

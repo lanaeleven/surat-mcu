@@ -36,20 +36,20 @@ class NarkotikaController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'pekerjaanPasien' => 'required',
-            'hslWawancara' => 'required',
-            'coccaine' => 'required|boolean',
-            'methamphetamine' => 'required|boolean',
-            'morphin' => 'required|boolean',
-            'marijuana' => 'required|boolean',
-            'benzodiazepines' => 'required|boolean',
-            'amphetamine' => 'required|boolean',
-            'kesimpulan' => 'required|boolean',
-            'keperluanSurat' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'pekerjaanPasien' => 'nullable',
+            'hslWawancara' => 'nullable',
+            'coccaine' => 'nullable|boolean',
+            'methamphetamine' => 'nullable|boolean',
+            'morphin' => 'nullable|boolean',
+            'marijuana' => 'nullable|boolean',
+            'benzodiazepines' => 'nullable|boolean',
+            'amphetamine' => 'nullable|boolean',
+            'kesimpulan' => 'nullable|boolean',
+            'keperluanSurat' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $narkotika = Narkotika::create($validatedData);
         return redirect()->route('narkotika.show', ['narkotika' => $narkotika->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -82,20 +82,20 @@ class NarkotikaController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'pekerjaanPasien' => 'required',
-            'hslWawancara' => 'required',
-            'coccaine' => 'required|boolean',
-            'methamphetamine' => 'required|boolean',
-            'morphin' => 'required|boolean',
-            'marijuana' => 'required|boolean',
-            'benzodiazepines' => 'required|boolean',
-            'amphetamine' => 'required|boolean',
-            'kesimpulan' => 'required|boolean',
-            'keperluanSurat' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'pekerjaanPasien' => 'nullable',
+            'hslWawancara' => 'nullable',
+            'coccaine' => 'nullable|boolean',
+            'methamphetamine' => 'nullable|boolean',
+            'morphin' => 'nullable|boolean',
+            'marijuana' => 'nullable|boolean',
+            'benzodiazepines' => 'nullable|boolean',
+            'amphetamine' => 'nullable|boolean',
+            'kesimpulan' => 'nullable|boolean',
+            'keperluanSurat' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $narkotika->update($validatedData);
         return redirect()->route('narkotika.show', ['narkotika' => $narkotika->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -110,6 +110,16 @@ class NarkotikaController extends Controller
     }
 
     public function generate(Narkotika $narkotika) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($narkotika);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($narkotika->idPasien);
         $dokter = Dokter::find($narkotika->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;

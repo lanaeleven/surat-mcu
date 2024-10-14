@@ -34,10 +34,10 @@ class SpirometriController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'diagAwal' => 'required',
-            'hslPemeriksaan' => 'required',
-            'kesimpulan' => 'required',
-            'saran' => 'required',
+            'diagAwal' => 'nullable',
+            'hslPemeriksaan' => 'nullable',
+            'kesimpulan' => 'nullable',
+            'saran' => 'nullable',
         ]);
         $spirometri = Spirometri::create($validatedData);
         return redirect()->route('spirometri.show', ['spirometri' => $spirometri->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -70,10 +70,10 @@ class SpirometriController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'diagAwal' => 'required',
-            'hslPemeriksaan' => 'required',
-            'kesimpulan' => 'required',
-            'saran' => 'required',
+            'diagAwal' => 'nullable',
+            'hslPemeriksaan' => 'nullable',
+            'kesimpulan' => 'nullable',
+            'saran' => 'nullable',
         ]);
         $spirometri->update($validatedData);
         return redirect()->route('spirometri.show', ['spirometri' => $spirometri->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -88,8 +88,18 @@ class SpirometriController extends Controller
     }
 
     public function generate(Spirometri $spirometri) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($spirometri);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($spirometri->idPasien);
-        $dokter = Dokter::find($spirometri->idDokter);  
+        $dokter = Dokter::find($spirometri->idDokter);
         $umur = Carbon::parse($pasien->tanggalLahir)->age;
 
         Carbon::setLocale('id');

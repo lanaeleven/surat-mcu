@@ -35,15 +35,15 @@ class GigiController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'karangAtas' => 'required|boolean',
-            'karangBawah' => 'required|boolean',
-            'decay' => 'required',
-            'missing' => 'required',
-            'filling' => 'required',
-            'sisaAkar' => 'required',
-            'jaringanLunak' => 'required',
-            'lainnya' => '',
-            'kesimpulan' => 'required',
+            'karangAtas' => 'nullable|boolean',
+            'karangBawah' => 'nullable|boolean',
+            'decay' => 'nullable',
+            'missing' => 'nullable',
+            'filling' => 'nullable',
+            'sisaAkar' => 'nullable',
+            'jaringanLunak' => 'nullable',
+            'lainnya' => 'nullable',
+            'kesimpulan' => 'nullable',
         ]);
 
         $gigi = Gigi::create($validatedData);
@@ -77,15 +77,15 @@ class GigiController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'karangAtas' => 'required|boolean',
-            'karangBawah' => 'required|boolean',
-            'decay' => 'required',
-            'missing' => 'required',
-            'filling' => 'required',
-            'sisaAkar' => 'required',
-            'jaringanLunak' => 'required',
-            'lainnya' => '',
-            'kesimpulan' => 'required',
+            'karangAtas' => 'nullable|boolean',
+            'karangBawah' => 'nullable|boolean',
+            'decay' => 'nullable',
+            'missing' => 'nullable',
+            'filling' => 'nullable',
+            'sisaAkar' => 'nullable',
+            'jaringanLunak' => 'nullable',
+            'lainnya' => 'nullable',
+            'kesimpulan' => 'nullable',
         ]);
         $gigi->update($validatedData);
         return redirect()->route('gigi.show', ['gigi' => $gigi->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -100,6 +100,16 @@ class GigiController extends Controller
     }
 
     public function generate(Gigi $gigi) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($gigi);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($gigi->idPasien);
         $dokter = Dokter::find($gigi->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;

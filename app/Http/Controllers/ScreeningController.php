@@ -35,14 +35,14 @@ class ScreeningController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'dokterSpesialis' => 'required',
-            'jenisScreening' => 'required',
-            'hslPemeriksaan' => 'required',
-            'statusKesehatan' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'dokterSpesialis' => 'nullable',
+            'jenisScreening' => 'nullable',
+            'hslPemeriksaan' => 'nullable',
+            'statusKesehatan' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $screening = Screening::create($validatedData);
         return redirect()->route('screening.show', ['screening' => $screening->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -75,14 +75,14 @@ class ScreeningController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'dokterSpesialis' => 'required',
-            'jenisScreening' => 'required',
-            'hslPemeriksaan' => 'required',
-            'statusKesehatan' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'dokterSpesialis' => 'nullable',
+            'jenisScreening' => 'nullable',
+            'hslPemeriksaan' => 'nullable',
+            'statusKesehatan' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $screening->update($validatedData);
         return redirect()->route('screening.show', ['screening' => $screening->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -97,6 +97,16 @@ class ScreeningController extends Controller
     }
 
     public function generate(Screening $screening) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($screening);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($screening->idPasien);
         $dokter = Dokter::find($screening->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;

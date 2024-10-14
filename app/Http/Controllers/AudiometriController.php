@@ -32,9 +32,9 @@ class AudiometriController extends Controller
         $validatedData = $request->validate([
             'idPasien' => 'required',
             'idDokter' => 'required',
-            'hslPemeriksaan' => 'required',
-            'kesimpulan' => 'required',
-            'tanggalPemeriksaan' => 'required',
+            'hslPemeriksaan' => 'nullable',
+            'kesimpulan' => 'nullable',
+            'tanggalPemeriksaan' => 'nullable',
         ]);
         $audiometri = Audiometri::create($validatedData);
         return redirect()->route('audiometri.show', ['audiometri' => $audiometri->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -64,9 +64,9 @@ class AudiometriController extends Controller
         $validatedData = $request->validate([
             'idPasien' => 'required',
             'idDokter' => 'required',
-            'hslPemeriksaan' => 'required',
-            'kesimpulan' => 'required',
-            'tanggalPemeriksaan' => 'required',
+            'hslPemeriksaan' => 'nullable',
+            'kesimpulan' => 'nullable',
+            'tanggalPemeriksaan' => 'nullable',
         ]);
         $audiometri->update($validatedData);
         return redirect()->route('audiometri.show', ['audiometri' => $audiometri->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -81,6 +81,16 @@ class AudiometriController extends Controller
     }
 
     public function generate(Audiometri $audiometri) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($audiometri);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($audiometri->idPasien);
         $dokter = Dokter::find($audiometri->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;

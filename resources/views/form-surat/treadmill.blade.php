@@ -4,6 +4,10 @@
 <x-alert-dismiss>{{ session('success') }}</x-alert-dismiss>
 @endif
 
+@if (session('alert'))
+<x-alert-danger>{{ session('alert') }}</x-alert-danger>
+@endif
+
 <div class="flex bg-white p-5 items-center rounded-lg mb-5">
     <div class="flex-none w-24">
         <x-yellow-link-button href="{{ route('treadmill.index', ['pasien' => $pasien->id]) }}">Kembali</x-yellow-link-button>
@@ -61,11 +65,11 @@
                 <x-dropdown-input :label="'Dokter Pemeriksa'" labelPilihan='Pilih Dokter' :name="'idDokter'" :id="'idDokter'" :options="$dokter" :readonly="$readonly" :required="true" selectedId="{{ old('idDokter', $treadmill->dokter->id ?? '') }}"></x-dropdown-input>
             </div>
             <div>
-                <x-text-area-input label='Hasil Pemeriksaan' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $treadmill->hslPemeriksaan ?? '') }}" :required="true" 
+                <x-text-area-input label='Hasil Pemeriksaan' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $treadmill->hslPemeriksaan ?? '') }}" :required="false" 
                 :readonly="$readonly" ></x-text-area-input>
             </div>
             <div>
-                <x-text-area-input label='Kesimpulan dan Saran' id='kesimpulan' name='kesimpulan' value="{{ old('kesimpulan', $treadmill->kesimpulan ?? '') }}" :required="true" :readonly="$readonly"></x-text-area-input>
+                <x-text-area-input label='Kesimpulan dan Saran' id='kesimpulan' name='kesimpulan' value="{{ old('kesimpulan', $treadmill->kesimpulan ?? '') }}" :required="false" :readonly="$readonly"></x-text-area-input>
             </div>
         </div>
             

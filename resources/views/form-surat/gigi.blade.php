@@ -3,6 +3,11 @@
 @if (session()->has('success'))
 <x-alert-dismiss>{{ session('success') }}</x-alert-dismiss>
 @endif
+
+@if (session('alert'))
+<x-alert-danger>{{ session('alert') }}</x-alert-danger>
+@endif
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -85,24 +90,24 @@
 
         <div class="grid grid-cols-4 gap-x-32 gap-y-4 my-6">
             <div>
-                <x-radio-button-input name="karangAtas" checked="{{ old('karangAtas', $gigi->karangAtas ?? '') }}" :options="$optionskarangAtas" :required="true" :readonly="$readonly">Karang Gigi (Rahang Atas)</x-radio-button-input>
+                <x-radio-button-input name="karangAtas" checked="{{ old('karangAtas', $gigi->karangAtas ?? '') }}" :options="$optionskarangAtas" :required="false" :readonly="$readonly">Karang Gigi (Rahang Atas)</x-radio-button-input>
             </div>
             <div>
-                <x-radio-button-input name="karangBawah" checked="{{ old('karangBawah', $gigi->karangBawah ?? '') }}" :options="$optionskarangBawah" :required="true" :readonly="$readonly">Karang Gigi (Rahang Bawah)</x-radio-button-input>
+                <x-radio-button-input name="karangBawah" checked="{{ old('karangBawah', $gigi->karangBawah ?? '') }}" :options="$optionskarangBawah" :required="false" :readonly="$readonly">Karang Gigi (Rahang Bawah)</x-radio-button-input>
             </div>
             <div></div>
             <div></div>
             <div>
-                <x-text-input name="decay" id="decay" value="{{ old('decay', $gigi->decay ?? '') }}" :required="true" :readonly="$readonly">Jml Decay/Gigi Berlubang</x-text-input>
+                <x-text-input name="decay" id="decay" value="{{ old('decay', $gigi->decay ?? '') }}" :required="false" :readonly="$readonly">Jml Decay/Gigi Berlubang</x-text-input>
             </div>
             <div>
-                <x-text-input name="missing" id="missing" value="{{ old('missing', $gigi->missing ?? '') }}" :required="true" :readonly="$readonly">Jml Missing/Gigi yang hilang</x-text-input>
+                <x-text-input name="missing" id="missing" value="{{ old('missing', $gigi->missing ?? '') }}" :required="false" :readonly="$readonly">Jml Missing/Gigi yang hilang</x-text-input>
             </div>
             <div>
-                <x-text-input name="filling" id="filling" value="{{ old('filling', $gigi->filling ?? '') }}" :required="true" :readonly="$readonly">Jml Filling/Gigi tambahan</x-text-input>
+                <x-text-input name="filling" id="filling" value="{{ old('filling', $gigi->filling ?? '') }}" :required="false" :readonly="$readonly">Jml Filling/Gigi tambahan</x-text-input>
             </div>
             <div>
-                <x-text-input name="sisaAkar" id="sisaAkar" value="{{ old('sisaAkar', $gigi->sisaAkar ?? '') }}" :required="true" :readonly="$readonly">Jml sisa akar</x-text-input>
+                <x-text-input name="sisaAkar" id="sisaAkar" value="{{ old('sisaAkar', $gigi->sisaAkar ?? '') }}" :required="false" :readonly="$readonly">Jml sisa akar</x-text-input>
             </div>
             
         </div>
@@ -111,11 +116,11 @@
 
         <div class="grid grid-cols-2 gap-x-6 gap-y-4 mt-6">
             <div>
-                <x-text-area-input label='Pemeriksaan Jaringan Lunak' id='jaringanLunak' name='jaringanLunak' value="{{ old('jaringanLunak', $gigi->jaringanLunak ?? '') }}" :required="true" 
+                <x-text-area-input label='Pemeriksaan Jaringan Lunak' id='jaringanLunak' name='jaringanLunak' value="{{ old('jaringanLunak', $gigi->jaringanLunak ?? '') }}" :required="false" 
                 :readonly="$readonly" ></x-text-area-input>
             </div>
             <div>
-                <x-text-area-input label='Kesimpulan & Saran' id='kesimpulan' name='kesimpulan' value="{{ old('kesimpulan', $gigi->kesimpulan ?? '') }}" :required="true" 
+                <x-text-area-input label='Kesimpulan & Saran' id='kesimpulan' name='kesimpulan' value="{{ old('kesimpulan', $gigi->kesimpulan ?? '') }}" :required="false" 
                 :readonly="$readonly" ></x-text-area-input>
             </div>
             <div>

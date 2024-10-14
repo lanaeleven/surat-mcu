@@ -4,6 +4,10 @@
 <x-alert-dismiss>{{ session('success') }}</x-alert-dismiss>
 @endif
 
+@if (session('alert'))
+<x-alert-danger>{{ session('alert') }}</x-alert-danger>
+@endif
+
 <div class="flex bg-white p-5 items-center rounded-lg mb-5">
     <div class="flex-none w-24">
         <x-yellow-link-button href="{{ route('narkotika.index', ['pasien' => $pasien->id]) }}">Kembali</x-yellow-link-button>
@@ -55,7 +59,7 @@
         <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-6">
             <input type="hidden" name="idPasien" value="{{ $pasien->id }}" >
             <div>
-                <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $narkotika->noSurat ?? '') }}" :required="true" :readonly="$readonly">Nomor Surat</x-text-input>
+                <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $narkotika->noSurat ?? '') }}" :required="false" :readonly="$readonly">Nomor Surat</x-text-input>
             </div>
             <div>
                 <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $narkotika->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
@@ -67,28 +71,25 @@
                 <label for="hariHijriyah" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Hijriyah</label>
             <div class="mt-2 flex">
             <input type="number" name="hariHijriyah" id="hariHijriyah" placeholder="tgl" value="{{ old('hariHijriyah', $narkotika->hariHijriyah ?? '') }}" class="block w-20 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
-            required
             @if ($readonly) disabled @endif 
             >
             <input type="text" name="bulanHijriyah" id="bulanHijriyah" placeholder="bulan" value="{{ old('bulanHijriyah', $narkotika->bulanHijriyah ?? '') }}" class="block w-40 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
-            required
             @if ($readonly) disabled @endif 
             >
             <input type="number" name="tahunHijriyah" id="tahunHijriyah" placeholder="tahun" value="{{ old('tahunHijriyah', $narkotika->tahunHijriyah ?? '') }}" class="block w-24 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-            required
             @if ($readonly) disabled @endif 
             >
             </div>
             </div>
             <div>
-                <x-text-input name="pekerjaanPasien" id="pekerjaanPasien" value="{{ old('pekerjaanPasien', $narkotika->pekerjaanPasien ?? '') }}" :required="true" :readonly="$readonly">Pekerjaan Pasien</x-text-input>
+                <x-text-input name="pekerjaanPasien" id="pekerjaanPasien" value="{{ old('pekerjaanPasien', $narkotika->pekerjaanPasien ?? '') }}" :required="false" :readonly="$readonly">Pekerjaan Pasien</x-text-input>
             </div>
             
             <div>
-                <x-text-input name="keperluanSurat" id="keperluanSurat" value="{{ old('keperluanSurat', $narkotika->keperluanSurat ?? '') }}" :required="true" :readonly="$readonly">Keperluan Surat</x-text-input>
+                <x-text-input name="keperluanSurat" id="keperluanSurat" value="{{ old('keperluanSurat', $narkotika->keperluanSurat ?? '') }}" :required="false" :readonly="$readonly">Keperluan Surat</x-text-input>
             </div>
             <div>
-                <x-text-area-input label='Hasil Wawancara DAST-10 ASSIST' id='hslWawancara' name='hslWawancara' value="{{ old('hslWawancara', $narkotika->hslWawancara ?? '') }}" :required="true" 
+                <x-text-area-input label='Hasil Wawancara DAST-10 ASSIST' id='hslWawancara' name='hslWawancara' value="{{ old('hslWawancara', $narkotika->hslWawancara ?? '') }}" :required="false" 
                     :readonly="$readonly" ></x-text-area-input>
             </div>
             </div>
@@ -129,22 +130,22 @@
             ];
             @endphp
             <div>
-                <x-radio-button-input name="coccaine" checked="{{ old('coccaine', $narkotika->coccaine ?? '') }}" :options="$optionsCoccaine" :required="true" :readonly="$readonly">Coccaine</x-radio-button-input>
+                <x-radio-button-input name="coccaine" checked="{{ old('coccaine', $narkotika->coccaine ?? '') }}" :options="$optionsCoccaine" :required="false" :readonly="$readonly">Coccaine</x-radio-button-input>
             </div>
             <div>
-                <x-radio-button-input name="methamphetamine" checked="{{ old('methamphetamine', $narkotika->methamphetamine ?? '') }}" :options="$optionsMethamphetamine" :required="true" :readonly="$readonly">Methamphetamine</x-radio-button-input>
+                <x-radio-button-input name="methamphetamine" checked="{{ old('methamphetamine', $narkotika->methamphetamine ?? '') }}" :options="$optionsMethamphetamine" :required="false" :readonly="$readonly">Methamphetamine</x-radio-button-input>
             </div>
             <div>
-                <x-radio-button-input name="morphin" checked="{{ old('morphin', $narkotika->morphin ?? '') }}" :options="$optionsMorphin" :required="true" :readonly="$readonly">Morphin</x-radio-button-input>
+                <x-radio-button-input name="morphin" checked="{{ old('morphin', $narkotika->morphin ?? '') }}" :options="$optionsMorphin" :required="false" :readonly="$readonly">Morphin</x-radio-button-input>
             </div>
             <div>
-                <x-radio-button-input name="marijuana" checked="{{ old('marijuana', $narkotika->marijuana ?? '') }}" :options="$optionsMarijuana" :required="true" :readonly="$readonly">Marijuana</x-radio-button-input>
+                <x-radio-button-input name="marijuana" checked="{{ old('marijuana', $narkotika->marijuana ?? '') }}" :options="$optionsMarijuana" :required="false" :readonly="$readonly">Marijuana</x-radio-button-input>
             </div>
             <div>
-                <x-radio-button-input name="benzodiazepines" checked="{{ old('benzodiazepines', $narkotika->benzodiazepines ?? '') }}" :options="$optionsBenzodiazepines" :required="true" :readonly="$readonly">Benzodiazepines</x-radio-button-input>
+                <x-radio-button-input name="benzodiazepines" checked="{{ old('benzodiazepines', $narkotika->benzodiazepines ?? '') }}" :options="$optionsBenzodiazepines" :required="false" :readonly="$readonly">Benzodiazepines</x-radio-button-input>
             </div>
             <div>
-                <x-radio-button-input name="amphetamine" checked="{{ old('amphetamine', $narkotika->amphetamine ?? '') }}" :options="$optionsAmphetamine" :required="true" :readonly="$readonly">Amphetamine</x-radio-button-input>
+                <x-radio-button-input name="amphetamine" checked="{{ old('amphetamine', $narkotika->amphetamine ?? '') }}" :options="$optionsAmphetamine" :required="false" :readonly="$readonly">Amphetamine</x-radio-button-input>
             </div>
         </div>
 
@@ -152,7 +153,7 @@
 
         <div class="grid grid-cols-2 gap-x-6 gap-y-4 mt-6">
             <div>
-                <x-radio-button-input name="kesimpulan" checked="{{ old('kesimpulan', $narkotika->kesimpulan ?? '') }}" :options="$optionsKesimpulan" :required="true" :readonly="$readonly">Kesimpulan Indikasi Penggunaan Narkotika</x-radio-button-input>
+                <x-radio-button-input name="kesimpulan" checked="{{ old('kesimpulan', $narkotika->kesimpulan ?? '') }}" :options="$optionsKesimpulan" :required="false" :readonly="$readonly">Kesimpulan Indikasi Penggunaan Narkotika</x-radio-button-input>
             </div>
         </div>
             

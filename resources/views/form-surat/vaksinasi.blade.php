@@ -4,6 +4,10 @@
 <x-alert-dismiss>{{ session('success') }}</x-alert-dismiss>
 @endif
 
+@if (session('alert'))
+<x-alert-danger>{{ session('alert') }}</x-alert-danger>
+@endif
+
 <div class="flex bg-white p-5 items-center rounded-lg mb-5">
     <div class="flex-none w-24">
         <x-yellow-link-button href="{{ route('vaksinasi.index', ['pasien' => $pasien->id]) }}">Kembali</x-yellow-link-button>
@@ -55,7 +59,7 @@
         <div class="grid grid-cols-2 gap-x-6 gap-y-4">
             <input type="hidden" name="idPasien" value="{{ $pasien->id }}" >
             <div>
-                <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $vaksinasi->noSurat ?? '') }}" :required="true" :readonly="$readonly">Nomor Surat</x-text-input>
+                <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $vaksinasi->noSurat ?? '') }}" :required="false" :readonly="$readonly">Nomor Surat</x-text-input>
             </div>
             <div>
                 <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $vaksinasi->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
@@ -67,24 +71,21 @@
                 <label for="hariHijriyah" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Hijriyah</label>
             <div class="mt-2 flex">
             <input type="number" name="hariHijriyah" id="hariHijriyah" placeholder="tgl" value="{{ old('hariHijriyah', $vaksinasi->hariHijriyah ?? '') }}" class="block w-20 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
-            required
             @if ($readonly) disabled @endif 
             >
             <input type="text" name="bulanHijriyah" id="bulanHijriyah" placeholder="bulan" value="{{ old('bulanHijriyah', $vaksinasi->bulanHijriyah ?? '') }}" class="block w-40 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
-            required
             @if ($readonly) disabled @endif 
             >
             <input type="number" name="tahunHijriyah" id="tahunHijriyah" placeholder="tahun" value="{{ old('tahunHijriyah', $vaksinasi->tahunHijriyah ?? '') }}" class="block w-24 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-            required
             @if ($readonly) disabled @endif 
             >
             </div>
             </div>
             <div>
-                <x-text-input name="jenisVaksin" id="jenisVaksin" value="{{ old('jenisVaksin', $vaksinasi->jenisVaksin ?? '') }}" :required="true" :readonly="$readonly">Jenis Vaksin</x-text-input>
+                <x-text-input name="jenisVaksin" id="jenisVaksin" value="{{ old('jenisVaksin', $vaksinasi->jenisVaksin ?? '') }}" :required="false" :readonly="$readonly">Jenis Vaksin</x-text-input>
             </div>
             <div>
-                <x-text-input name="tujuanVaksin" id="tujuanVaksin" value="{{ old('tujuanVaksin', $vaksinasi->tujuanVaksin ?? '') }}" :required="true" :readonly="$readonly">Tujuan Vaksin</x-text-input>
+                <x-text-input name="tujuanVaksin" id="tujuanVaksin" value="{{ old('tujuanVaksin', $vaksinasi->tujuanVaksin ?? '') }}" :required="false" :readonly="$readonly">Tujuan Vaksin</x-text-input>
             </div>
         </div>
             

@@ -35,22 +35,22 @@ class GiziController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'tinggiBadan' => 'required',
-            'denyutNadi' => 'required',
-            'tekananDarah' => 'required',
-            'spo2' => 'required',
-            'beratBadan' => 'required',
-            'frekuensiNafas' => 'required',
-            'suhuBadan' => 'required',
-            'imt' => 'required',
-            'hslBIA' => 'required',
-            'statusGizi' => 'required',
-            'rekomTerapiGizi' => 'required',
-            'saran' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'tinggiBadan' => 'nullable',
+            'denyutNadi' => 'nullable',
+            'tekananDarah' => 'nullable',
+            'spo2' => 'nullable',
+            'beratBadan' => 'nullable',
+            'frekuensiNafas' => 'nullable',
+            'suhuBadan' => 'nullable',
+            'imt' => 'nullable',
+            'hslBIA' => 'nullable',
+            'statusGizi' => 'nullable',
+            'rekomTerapiGizi' => 'nullable',
+            'saran' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $gizi = Gizi::create($validatedData);
         return redirect()->route('gizi.show', ['gizi' => $gizi->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -83,22 +83,22 @@ class GiziController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'tinggiBadan' => 'required',
-            'denyutNadi' => 'required',
-            'tekananDarah' => 'required',
-            'spo2' => 'required',
-            'beratBadan' => 'required',
-            'frekuensiNafas' => 'required',
-            'suhuBadan' => 'required',
-            'imt' => 'required',
-            'hslBIA' => 'required',
-            'statusGizi' => 'required',
-            'rekomTerapiGizi' => 'required',
-            'saran' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'tinggiBadan' => 'nullable',
+            'denyutNadi' => 'nullable',
+            'tekananDarah' => 'nullable',
+            'spo2' => 'nullable',
+            'beratBadan' => 'nullable',
+            'frekuensiNafas' => 'nullable',
+            'suhuBadan' => 'nullable',
+            'imt' => 'nullable',
+            'hslBIA' => 'nullable',
+            'statusGizi' => 'nullable',
+            'rekomTerapiGizi' => 'nullable',
+            'saran' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $gizi->update($validatedData);
         return redirect()->route('gizi.show', ['gizi' => $gizi->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -113,6 +113,16 @@ class GiziController extends Controller
     }
 
     public function generate(Gizi $gizi) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($gizi);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($gizi->idPasien);
         $dokter = Dokter::find($gizi->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;

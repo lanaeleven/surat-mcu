@@ -4,6 +4,10 @@
 <x-alert-dismiss>{{ session('success') }}</x-alert-dismiss>
 @endif
 
+@if (session('alert'))
+<x-alert-danger>{{ session('alert') }}</x-alert-danger>
+@endif
+
 <div class="flex bg-white p-5 items-center rounded-lg mb-5">
     <div class="flex-none w-24">
         <x-yellow-link-button href="{{ route('screening.index', ['pasien' => $pasien->id]) }}">Kembali</x-yellow-link-button>
@@ -55,7 +59,7 @@
         <div class="grid grid-cols-2 gap-x-6 gap-y-4">
             <input type="hidden" name="idPasien" value="{{ $pasien->id }}" >
             <div>
-                <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $screening->noSurat ?? '') }}" :required="true" :readonly="$readonly">Nomor Surat</x-text-input>
+                <x-text-input name="noSurat" id="noSurat" value="{{ old('noSurat', $screening->noSurat ?? '') }}" :required="false" :readonly="$readonly">Nomor Surat</x-text-input>
             </div>
             <div>
                 <x-date-input name="tanggalPemeriksaan" id="tanggalPemeriksaan" value="{{ old('tanggalPemeriksaan', $screening->tanggalPemeriksaan ?? '') }}" :required="true" :readonly="$readonly">Tanggal Pemeriksaan</x-date-input>
@@ -67,27 +71,24 @@
                 <label for="hariHijriyah" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Hijriyah</label>
             <div class="mt-2 flex">
             <input type="number" name="hariHijriyah" id="hariHijriyah" placeholder="tgl" value="{{ old('hariHijriyah', $screening->hariHijriyah ?? '') }}" class="block w-20 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
-            required
             @if ($readonly) disabled @endif 
             >
             <input type="text" name="bulanHijriyah" id="bulanHijriyah" placeholder="bulan" value="{{ old('bulanHijriyah', $screening->bulanHijriyah ?? '') }}" class="block w-40 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 me-3" 
-            required
             @if ($readonly) disabled @endif 
             >
             <input type="number" name="tahunHijriyah" id="tahunHijriyah" placeholder="tahun" value="{{ old('tahunHijriyah', $screening->tahunHijriyah ?? '') }}" class="block w-24 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-            required
             @if ($readonly) disabled @endif 
             >
             </div>
             </div>
             <div>
-                <x-text-input name="dokterSpesialis" id="dokterSpesialis" value="{{ old('dokterSpesialis', $screening->dokterSpesialis ?? '') }}" :required="true" :readonly="$readonly">Spesialisasi Dokter</x-text-input>
+                <x-text-input name="dokterSpesialis" id="dokterSpesialis" value="{{ old('dokterSpesialis', $screening->dokterSpesialis ?? '') }}" :required="false" :readonly="$readonly">Spesialisasi Dokter</x-text-input>
             </div>
             <div>
-                <x-text-input name="jenisScreening" id="jenisScreening" value="{{ old('jenisScreening', $screening->jenisScreening ?? '') }}" :required="true" :readonly="$readonly">Jenis Screening</x-text-input>
+                <x-text-input name="jenisScreening" id="jenisScreening" value="{{ old('jenisScreening', $screening->jenisScreening ?? '') }}" :required="false" :readonly="$readonly">Jenis Screening</x-text-input>
             </div>
             <div>
-                <x-text-area-input label='Kondisi Klinis' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $screening->hslPemeriksaan ?? '') }}" :required="true" 
+                <x-text-area-input label='Kondisi Klinis' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $screening->hslPemeriksaan ?? '') }}" :required="false" 
                 :readonly="$readonly" ></x-text-area-input>
             </div>
 
@@ -98,7 +99,7 @@
             ];
             @endphp
             <div>
-                <x-radio-button-input name="statusKesehatan" checked="{{ old('statusKesehatan', $screening->statusKesehatan ?? '') }}" :options="$optionsStatusKesehatan" :required="true" :readonly="$readonly">Status Kesehatan</x-radio-button-input>
+                <x-radio-button-input name="statusKesehatan" checked="{{ old('statusKesehatan', $screening->statusKesehatan ?? '') }}" :options="$optionsStatusKesehatan" :required="false" :readonly="$readonly">Status Kesehatan</x-radio-button-input>
             </div>
         </div>
             

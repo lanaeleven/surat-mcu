@@ -33,8 +33,8 @@ class TreadmillController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'hslPemeriksaan' => 'required',
-            'kesimpulan' => 'required',
+            'hslPemeriksaan' => 'nullable',
+            'kesimpulan' => 'nullable',
         ]);
         $treadmill = Treadmill::create($validatedData);
         return redirect()->route('treadmill.show', ['treadmill' => $treadmill->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -64,8 +64,9 @@ class TreadmillController extends Controller
         $validatedData = $request->validate([
             'idPasien' => 'required',
             'idDokter' => 'required',
-            'hslPemeriksaan' => 'required',
-            'kesimpulan' => 'required',
+            'tanggalPemeriksaan' => 'required',
+            'hslPemeriksaan' => 'nullable',
+            'kesimpulan' => 'nullable',
         ]);
         $treadmill->update($validatedData);
         return redirect()->route('treadmill.show', ['treadmill' => $treadmill->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -80,6 +81,16 @@ class TreadmillController extends Controller
     }
 
     public function generate(Treadmill $treadmill) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($treadmill);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($treadmill->idPasien);
         $dokter = Dokter::find($treadmill->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;

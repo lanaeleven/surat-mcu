@@ -36,12 +36,12 @@ class VaksinasiController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'jenisVaksin' => 'required',
-            'tujuanVaksin' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'jenisVaksin' => 'nullable',
+            'tujuanVaksin' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $vaksinasi = Vaksinasi::create($validatedData);
         return redirect()->route('vaksinasi.show', ['vaksinasi' => $vaksinasi->id])->with('success', "Data Pasien Berhasil Ditambahkan");
@@ -74,12 +74,12 @@ class VaksinasiController extends Controller
             'idPasien' => 'required',
             'idDokter' => 'required',
             'tanggalPemeriksaan' => 'required',
-            'noSurat' => 'required',
-            'jenisVaksin' => 'required',
-            'tujuanVaksin' => 'required',
-            'hariHijriyah' => 'required',
-            'bulanHijriyah' => 'required',
-            'tahunHijriyah' => 'required',
+            'noSurat' => 'nullable',
+            'jenisVaksin' => 'nullable',
+            'tujuanVaksin' => 'nullable',
+            'hariHijriyah' => 'nullable',
+            'bulanHijriyah' => 'nullable',
+            'tahunHijriyah' => 'nullable',
         ]);
         $vaksinasi->update($validatedData);
         return redirect()->route('vaksinasi.show', ['vaksinasi' => $vaksinasi->id])->with('success', "Data Pasien Berhasil Diupdate");
@@ -94,6 +94,16 @@ class VaksinasiController extends Controller
     }
 
     public function generate(Vaksinasi $vaksinasi) {
+
+        // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
+        $checkNull = collect($vaksinasi);
+        $hasNull = $checkNull->contains(function ($value) {
+            return is_null($value);
+        });
+        if ($hasNull) {
+            return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
+        }
+
         $pasien = Pasien::find($vaksinasi->idPasien);
         $dokter = Dokter::find($vaksinasi->idDokter);  
         $umur = Carbon::parse($pasien->tanggalLahir)->age;
