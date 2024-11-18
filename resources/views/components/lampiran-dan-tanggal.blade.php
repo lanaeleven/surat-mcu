@@ -19,10 +19,10 @@
 
     <table style="border-collapse: collapse; float: right;">
         <tr>
-            <td style="padding-right: 3">Banjarbaru, </td>
-            <td style="padding-right: 3">{{ $tanggalHijriyahHari }}</td>
-            <td style="padding-right: 3">{{ $tanggalHijriyahBulan }}</td>
-            <td>{{ $tanggalHijriyahTahun }} H</td>
+            <td style="padding-right: 3; border-bottom: 1px solid black">Banjarbaru, </td>
+            <td style="padding-right: 3; border-bottom: 1px solid black">{{ $tanggalHijriyahHari }}</td>
+            <td style="padding-right: 3; border-bottom: 1px solid black">{{ $tanggalHijriyahBulan }}</td>
+            <td style="border-bottom: 1px solid black">{{ $tanggalHijriyahTahun }} H</td>
         </tr>
         <tr>
             <td></td>

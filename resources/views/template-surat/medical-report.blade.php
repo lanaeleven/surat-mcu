@@ -226,7 +226,7 @@
 
     <br>
 
-    <h3>STATUS KESEHATAN GIZI ANDA SAAT INI</h3>
+    <h3>STATUS KESEHATAN ANDA SAAT INI</h3>
 
     <b>Ditemukan:</b>
             <table class="table-container-garis-tengah">
@@ -259,9 +259,9 @@
     <br>
 
     <b>Kondisi Klinis :</b>
-    <p style="text-align: justify">
-        {!! nl2br(e($medicalReport->hslPemeriksaan)) !!}
-    </p>
+    {{-- <p style="text-align: justify"> --}}
+        {!! $medicalReport->hslPemeriksaan !!}
+    {{-- </p> --}}
     
 
     <br>
@@ -410,9 +410,9 @@
     <br>
 
     <b>REKOMENDASI / SARAN :</b>
-    <p style="text-align: justify">
-        {!! nl2br(e($medicalReport->saran)) !!}
-    </p>
+    {{-- <p style="text-align: justify"> --}}
+        {!! $medicalReport->saran !!}
+    {{-- </p> --}}
     <p>Terima kasih atas kepercayaan Anda telah melakukan pemeriksaan kesehatan bersama Rumah Sakit Islam Sultan Agung Banjarbaru.</p>
 
     <br><br>
