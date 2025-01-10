@@ -187,6 +187,10 @@
         </tr>
     </table>
 
+    <p>
+        Telah melakukan <b>{{ $vaksinasi->jenisVaksin }}</b>, pada tanggal {{ $tanggalPemeriksaanHari }} {{ $tanggalPemeriksaanBulan }} {{ $tanggalPemeriksaanTahun }} di RSI Sultan Agung Banjarbaru. Surat Keterangan ini digunakan untuk: {{ $vaksinasi->tujuanVaksin }}.
+    </p>
+
 
     <table class="table-container-ttd">
         <tr>
