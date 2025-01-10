@@ -288,8 +288,6 @@
         {!! nl2br(e($gizi->saran)) !!}
     </p>
 
-    <br><br>
-
     <table class="table-container-ttd">
         <tr>
             <td>

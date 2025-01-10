@@ -14,7 +14,7 @@
                 margin-top: 3cm;
                 margin-left: 2cm;
                 margin-right: 2cm;
-                margin-bottom: 2cm;
+                margin-bottom: 1cm;
                 font-family: 'Calibri', sans-serif;
                 font-size: 14px;
             }
@@ -193,8 +193,6 @@
         </tr>
     </table>
 
-    <br>
-
     <p>Dengan ini menyatakan bahwa:</p>
             <table class="table-container-atas">
         <tr>
@@ -223,8 +221,6 @@
             <td>{{ $pasien->noRM }}</td>
         </tr>
     </table>
-
-    <br>
 
     <h3>STATUS KESEHATAN ANDA SAAT INI</h3>
 
@@ -414,8 +410,6 @@
         {!! $medicalReport->saran !!}
     {{-- </p> --}}
     <p>Terima kasih atas kepercayaan Anda telah melakukan pemeriksaan kesehatan bersama Rumah Sakit Islam Sultan Agung Banjarbaru.</p>
-
-    <br><br>
 
     <table class="table-container-ttd">
         <tr>

@@ -263,8 +263,6 @@
         </tr>
     </table>
 
-    <br><br>
-
     <table class="table-container-ttd">
         <tr>
             <td>

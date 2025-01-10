@@ -14,7 +14,7 @@
                 margin-top: 3cm;
                 margin-left: 2cm;
                 margin-right: 2cm;
-                margin-bottom: 2cm;
+                margin-bottom: 1cm;
                 font-family: 'Calibri', sans-serif;
                 font-size: 14px;
             }
@@ -136,7 +136,7 @@
                 page-break-inside: avoid;
                 text-align: center;
                 /* border: 1px solid #000; */
-                padding: 3px;
+                /* padding: 3px; */
             }
 
             /* .table-container-atas th {
@@ -205,7 +205,6 @@
         </tr>
     </table>
 
-    <br>
 
     <p>Dengan ini menyatakan bahwa:</p>
             <table class="table-container-atas">
@@ -265,8 +264,6 @@
             <td><b>{{ $kesehatanBadan->imt }} kg/m<sup>2</sup></b></td>
         </tr>
     </table>
-    
-    <br>
 
     <p style="text-align: justify;">
         Saat ini dapat dinyatakan dalam keadaan berbadan <b>
@@ -299,10 +296,10 @@
         Surat Keterangan Sehat ini digunakan sebagai : <b>{{ $kesehatanBadan->keperluanSurat }}</b> 
     </p>
     <p style="text-align: justify;">
-        Demikian surat keterangan ini agar dapat dipergunakan sebagaimana mestinya. Terima kasih.  
+        Demikian surat keterangan ini agar dapat dipergunakan sebagaimana mestinya. Terima kasih.
     </p>
 
-    <br><br>
+ 
 
     <table class="table-container-ttd">
         <tr>

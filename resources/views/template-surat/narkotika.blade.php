@@ -298,7 +298,6 @@
         Surat Keterangan ini digunakan untuk : <b> {{ $narkotika->keperluanSurat }} </b> 
     </p>
 
-    <br><br>
 
     <table class="table-container-ttd">
         <tr>

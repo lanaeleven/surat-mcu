@@ -244,7 +244,6 @@
     </p>
     <p>Demikian surat keterangan ini dibuat agar dapat dipergunakan sebagai mana mestinya. Terima kasih.</p>
 
-    <br><br>
 
     <table class="table-container-ttd">
         <tr>

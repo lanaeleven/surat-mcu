@@ -148,20 +148,20 @@
 
         <div class="grid grid-cols-2 gap-x-6 gap-y-4 mt-3">
 
-            {{-- <div>
+             {{-- <!-- <div>
                 <x-text-area-input label='Kondisi Klinis' id='hslPemeriksaan' name='hslPemeriksaan' value="{{ old('hslPemeriksaan', $medicalReport->hslPemeriksaan ?? '') }}" :required="false" 
                 :readonly="$readonly" ></x-text-area-input>
-            </div> --}}
-            {{-- <div>
+            </div> 
+             <div>
                 <x-text-area-input label='Rekomendasi / Saran' id='saran' name='saran' value="{{ old('saran', $medicalReport->saran ?? '') }}" :required="false" 
                 :readonly="$readonly" ></x-text-area-input>
-            </div> --}}
+            </div>  --> --}}
             
             <div>
                 <div class="col-span-full">
                     <label for="hslPemeriksaan" class="block text-sm font-medium leading-6 text-gray-900">Kondisi Klinis</label>
                     <div class="mt-2">
-                        <input id="hslPemeriksaan" type="hidden" name="hslPemeriksaan" value="{{ old('hslPemeriksaan', $medicalReport->hslPemeriksaan) }}">
+                        <input id="hslPemeriksaan" type="hidden" name="hslPemeriksaan" value="{{ old('hslPemeriksaan', $medicalReport->hslPemeriksaan ?? '')}}">
                       <trix-editor input="hslPemeriksaan" rows="3" class="trix-editor"></trix-editor>
                     </div>
                   </div>
@@ -170,7 +170,7 @@
                 <div class="col-span-full">
                     <label for="saran" class="block text-sm font-medium leading-6 text-gray-900">Rekomendasi / Saran</label>
                     <div class="mt-2">
-                        <input id="saran" type="hidden" name="saran" value="{{ old('saran', $medicalReport->saran) }}">
+                        <input id="saran" type="hidden" name="saran" value="{{ old('saran', $medicalReport->saran ?? '') }}">
                       <trix-editor input="saran" rows="3" class="trix-editor"></trix-editor>
                     </div>
                   </div>
