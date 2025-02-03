@@ -256,7 +256,9 @@
 
     <b>Kondisi Klinis :</b>
     {{-- <p style="text-align: justify"> --}}
+    <div style="text-align: justify; line-height: 1.6;">
         {!! $medicalReport->hslPemeriksaan !!}
+    </div>
     {{-- </p> --}}
     
 
@@ -407,7 +409,9 @@
 
     <b>REKOMENDASI / SARAN :</b>
     {{-- <p style="text-align: justify"> --}}
+        <div style="text-align: justify; line-height: 1.6;">
         {!! $medicalReport->saran !!}
+        </div>
     {{-- </p> --}}
     <p>Terima kasih atas kepercayaan Anda telah melakukan pemeriksaan kesehatan bersama Rumah Sakit Islam Sultan Agung Banjarbaru.</p>
 
@@ -429,7 +433,7 @@
         </tr>
         <tr>
             <td>
-                {{ $dokter->nama }}
+                <b><u>{{ $dokter->nama }}</u></b>
             </td>
         </tr>
         <tr>

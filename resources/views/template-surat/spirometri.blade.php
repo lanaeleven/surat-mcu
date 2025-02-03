@@ -203,7 +203,7 @@
         </tr>
         <tr>
             <td>
-                {{ $dokter->nama }}
+                <b><u>{{ $dokter->nama }}</u></b>
             </td>
         </tr>
         <tr>
