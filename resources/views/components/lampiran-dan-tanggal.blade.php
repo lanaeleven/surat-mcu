@@ -21,7 +21,7 @@
         <tr>
             <td style="padding-right: 3; border-bottom: 1px solid black">Banjarbaru, </td>
             <td style="padding-right: 3; border-bottom: 1px solid black">{{ $tanggalHijriyahHari }}</td>
-            <td style="padding-right: 3; border-bottom: 1px solid black">{{ $tanggalHijriyahBulan }}</td>
+            <td style="padding-right: 3; border-bottom: 1px solid black">{!! $tanggalHijriyahBulan !!}</td>
             <td style="border-bottom: 1px solid black">{{ $tanggalHijriyahTahun }} H</td>
         </tr>
         <tr>

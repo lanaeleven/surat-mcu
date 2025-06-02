@@ -241,11 +241,11 @@
             <table class="table-container-garis-tengah">
         <tr>
             <td><b>1.</b></td>
-            <td colspan="3">Wawancara klinis menggunakan <b>DAST-10 / ASSIST</b> dengan hasil: {{ $narkotika->hslWawancara }}</td>
+            <td colspan="3" style="text-align: justify;">Wawancara klinis menggunakan <b>DAST-10 / ASSIST</b> dengan hasil: {{ $narkotika->hslWawancara }}</td>
         </tr>
         <tr>
             <td><b>2.</b></td>
-            <td colspan="3">Pemeriksaan urin saat ini menggunakan <b><i>rapid test/immune assay</i></b> 6 (enam) parameter dengan hasil :</td>
+            <td colspan="3" style="text-align: justify;">Pemeriksaan urin saat ini menggunakan <b><i>rapid test/immune assay</i></b> 6 (enam) parameter dengan hasil :</td>
         </tr>
         <tr>
             <td></td>
@@ -285,7 +285,7 @@
         </tr>
         <tr>
             <td><b>3.</b></td>
-            <td colspan="3">Pemeriksaan fisik dengan hasil saat ini @if ($narkotika->kesimpulan) DITEMUKAN / <del>TIDAK DITEMUKAN</del> @else <del>DITEMUKAN</del> / TIDAK DITEMUKAN @endif tanda-tanda menggunakan narkoba</td>
+            <td colspan="3" style="text-align: justify;">Pemeriksaan fisik dengan hasil saat ini @if ($narkotika->kesimpulan) DITEMUKAN / <del>TIDAK DITEMUKAN</del> @else <del>DITEMUKAN</del> / TIDAK DITEMUKAN @endif tanda-tanda menggunakan narkoba</td>
         </tr>
     </table>
     
