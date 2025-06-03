@@ -56,4 +56,8 @@ class Pasien extends Model
     public function tuberkulosis(): HasMany {
         return $this->hasMany(Tuberkulosis::class, 'idPasien');
     }
+
+    public function hepatia(): HasMany {
+        return $this->hasMany(Hepatia::class, 'idPasien');
+    }
 }

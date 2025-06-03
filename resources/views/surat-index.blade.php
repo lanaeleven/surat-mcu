@@ -46,6 +46,9 @@
         <div>
             <x-card-surat :lengkap="true" gambar='/images/tbc.png' href="{{ route('tuberkulosis.index', ['pasien' => $pasien->id]) }}" :exist="$tuberkulosisCount">Tuberkulosis</x-card-surat>
         </div>
+        <div>
+            <x-card-surat :lengkap="true" gambar='/images/hepatiA.png' href="{{ route('hepatia.index', ['pasien' => $pasien->id]) }}" :exist="$hepatiaCount">Hepatitis A</x-card-surat>
+        </div>
     </div>
 </div>
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\TreadmillController;
 use App\Http\Controllers\VaksinasiController;
 use App\Http\Controllers\AudiometriController;
+use App\Http\Controllers\HepatiaController;
 use App\Http\Controllers\SpirometriController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\KesehatanBadanController;
@@ -153,6 +154,15 @@ Route::get('/surat/tuberkulosis/{tuberkulosis}/edit', [TuberkulosisController::c
 Route::put('/tuberkulosis/{tuberkulosis}', [TuberkulosisController::class, 'update'])->name('tuberkulosis.update');
 Route::delete('/tuberkulosis/{id}', [TuberkulosisController::class, 'destroy'])->name('tuberkulosis.destroy');
 Route::post('/tuberkulosis/generate/{tuberkulosis}', [TuberkulosisController::class, 'generate'])->name('tuberkulosis.generate');
+
+Route::get('/surat/{pasien}/hepatia', [HepatiaController::class, 'index'])->name('hepatia.index')->middleware('auth');
+Route::get('/surat/{pasien}/hepatia/create', [HepatiaController::class, 'create'])->name('hepatia.create')->middleware('auth');
+Route::post('/hepatia', [HepatiaController::class, 'store'])->name('hepatia.store');
+Route::get('/surat/hepatia/{hepatia}', [HepatiaController::class, 'show'])->name('hepatia.show')->middleware('auth');
+Route::get('/surat/hepatia/{hepatia}/edit', [HepatiaController::class, 'edit'])->name('hepatia.edit')->middleware('auth');
+Route::put('/hepatia/{hepatia}', [HepatiaController::class, 'update'])->name('hepatia.update');
+Route::delete('/hepatia/{id}', [HepatiaController::class, 'destroy'])->name('hepatia.destroy');
+Route::post('/hepatia/generate/{hepatia}', [HepatiaController::class, 'generate'])->name('hepatia.generate');
 
 // Route::get('/buat-surat/{pasien}/audiometri', [SuratController::class, 'dataAudiometri']);
 // Route::get('/cetak-data/{audiometri}', [SuratController::class, 'cetakData']);

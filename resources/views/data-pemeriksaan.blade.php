@@ -74,6 +74,9 @@
               } elseif ($jenisPemeriksaan == 'tuberkulosis') {
                 $routeCetak = route('tuberkulosis.show', ['tuberkulosis' => $dp->id]);
                 $routeHapus = route('tuberkulosis.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'hepatia') {
+                $routeCetak = route('hepatia.show', ['hepatia' => $dp->id]);
+                $routeHapus = route('hepatia.destroy', ['id' => $dp->id]);
               } else {
                 $route = '';
               }

@@ -60,4 +60,8 @@ class Dokter extends Model
     public function tuberkulosis(): HasMany {
         return $this->hasMany(Tuberkulosis::class, 'idDokter');
     }
+
+    public function hepatia(): HasMany {
+        return $this->hasMany(Hepatia::class, 'idDokter');
+    }
 }
