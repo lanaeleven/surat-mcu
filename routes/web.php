@@ -13,6 +13,7 @@ use App\Http\Controllers\TreadmillController;
 use App\Http\Controllers\VaksinasiController;
 use App\Http\Controllers\AudiometriController;
 use App\Http\Controllers\HepatiaController;
+use App\Http\Controllers\HepatibController;
 use App\Http\Controllers\SpirometriController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\KesehatanBadanController;
@@ -163,6 +164,15 @@ Route::get('/surat/hepatia/{hepatia}/edit', [HepatiaController::class, 'edit'])-
 Route::put('/hepatia/{hepatia}', [HepatiaController::class, 'update'])->name('hepatia.update');
 Route::delete('/hepatia/{id}', [HepatiaController::class, 'destroy'])->name('hepatia.destroy');
 Route::post('/hepatia/generate/{hepatia}', [HepatiaController::class, 'generate'])->name('hepatia.generate');
+
+Route::get('/surat/{pasien}/hepatib', [HepatibController::class, 'index'])->name('hepatib.index')->middleware('auth');
+Route::get('/surat/{pasien}/hepatib/create', [HepatibController::class, 'create'])->name('hepatib.create')->middleware('auth');
+Route::post('/hepatib', [HepatibController::class, 'store'])->name('hepatib.store');
+Route::get('/surat/hepatib/{hepatib}', [HepatibController::class, 'show'])->name('hepatib.show')->middleware('auth');
+Route::get('/surat/hepatib/{hepatib}/edit', [HepatibController::class, 'edit'])->name('hepatib.edit')->middleware('auth');
+Route::put('/hepatib/{hepatib}', [HepatibController::class, 'update'])->name('hepatib.update');
+Route::delete('/hepatib/{id}', [HepatibController::class, 'destroy'])->name('hepatib.destroy');
+Route::post('/hepatib/generate/{hepatib}', [HepatibController::class, 'generate'])->name('hepatib.generate');
 
 // Route::get('/buat-surat/{pasien}/audiometri', [SuratController::class, 'dataAudiometri']);
 // Route::get('/cetak-data/{audiometri}', [SuratController::class, 'cetakData']);

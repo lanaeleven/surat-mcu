@@ -77,6 +77,9 @@
               } elseif ($jenisPemeriksaan == 'hepatia') {
                 $routeCetak = route('hepatia.show', ['hepatia' => $dp->id]);
                 $routeHapus = route('hepatia.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'hepatib') {
+                $routeCetak = route('hepatib.show', ['hepatib' => $dp->id]);
+                $routeHapus = route('hepatib.destroy', ['id' => $dp->id]);
               } else {
                 $route = '';
               }

@@ -80,7 +80,8 @@ class PasienController extends Controller
         $treadmillCount = $pasien->treadmill()->count();
         $tuberkulosisCount = $pasien->tuberkulosis()->count();
         $hepatiaCount = $pasien->hepatia()->count();
+        $hepatibCount = $pasien->hepatib()->count();
 
-        return view('surat-index', compact('title', 'pasien', 'audiometriCount', 'spirometriCount', 'vaksinasiCount', 'giziCount', 'medicalReportCount', 'gigiCount', 'screeningCount', 'kesehatanBadanCount', 'narkotikaCount', 'treadmillCount', 'tuberkulosisCount', 'hepatiaCount'));
+        return view('surat-index', compact('title', 'pasien', 'audiometriCount', 'spirometriCount', 'vaksinasiCount', 'giziCount', 'medicalReportCount', 'gigiCount', 'screeningCount', 'kesehatanBadanCount', 'narkotikaCount', 'treadmillCount', 'tuberkulosisCount', 'hepatiaCount', 'hepatibCount'));
     }
 }

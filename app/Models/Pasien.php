@@ -60,4 +60,8 @@ class Pasien extends Model
     public function hepatia(): HasMany {
         return $this->hasMany(Hepatia::class, 'idPasien');
     }
+
+    public function hepatib(): HasMany {
+        return $this->hasMany(Hepatib::class, 'idPasien');
+    }
 }
