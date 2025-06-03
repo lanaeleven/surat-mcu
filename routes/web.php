@@ -15,6 +15,7 @@ use App\Http\Controllers\AudiometriController;
 use App\Http\Controllers\SpirometriController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\KesehatanBadanController;
+use App\Http\Controllers\TuberkulosisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -143,6 +144,15 @@ Route::get('/surat/gigi/{gigi}/edit', [GigiController::class, 'edit'])->name('gi
 Route::put('/gigi/{gigi}', [GigiController::class, 'update'])->name('gigi.update');
 Route::delete('/gigi/{id}', [GigiController::class, 'destroy'])->name('gigi.destroy');
 Route::post('/gigi/generate/{gigi}', [GigiController::class, 'generate'])->name('gigi.generate');
+
+Route::get('/surat/{pasien}/tuberkulosis', [TuberkulosisController::class, 'index'])->name('tuberkulosis.index')->middleware('auth');
+Route::get('/surat/{pasien}/tuberkulosis/create', [TuberkulosisController::class, 'create'])->name('tuberkulosis.create')->middleware('auth');
+Route::post('/tuberkulosis', [TuberkulosisController::class, 'store'])->name('tuberkulosis.store');
+Route::get('/surat/tuberkulosis/{tuberkulosis}', [TuberkulosisController::class, 'show'])->name('tuberkulosis.show')->middleware('auth');
+Route::get('/surat/tuberkulosis/{tuberkulosis}/edit', [TuberkulosisController::class, 'edit'])->name('tuberkulosis.edit')->middleware('auth');
+Route::put('/tuberkulosis/{tuberkulosis}', [TuberkulosisController::class, 'update'])->name('tuberkulosis.update');
+Route::delete('/tuberkulosis/{id}', [TuberkulosisController::class, 'destroy'])->name('tuberkulosis.destroy');
+Route::post('/tuberkulosis/generate/{tuberkulosis}', [TuberkulosisController::class, 'generate'])->name('tuberkulosis.generate');
 
 // Route::get('/buat-surat/{pasien}/audiometri', [SuratController::class, 'dataAudiometri']);
 // Route::get('/cetak-data/{audiometri}', [SuratController::class, 'cetakData']);

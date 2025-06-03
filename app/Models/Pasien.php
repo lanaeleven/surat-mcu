@@ -52,4 +52,8 @@ class Pasien extends Model
     public function gigi(): HasMany {
         return $this->hasMany(Gigi::class, 'idPasien');
     }
+
+    public function tuberkulosis(): HasMany {
+        return $this->hasMany(Tuberkulosis::class, 'idPasien');
+    }
 }

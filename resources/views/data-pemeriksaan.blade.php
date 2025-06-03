@@ -70,6 +70,10 @@
               } elseif ($jenisPemeriksaan == 'gigi') {
                 $routeCetak = route('gigi.show', ['gigi' => $dp->id]);
                 $routeHapus = route('gigi.destroy', ['id' => $dp->id]);
+                $routeHapus = route('treadmill.destroy', ['id' => $dp->id]);
+              } elseif ($jenisPemeriksaan == 'tuberkulosis') {
+                $routeCetak = route('tuberkulosis.show', ['tuberkulosis' => $dp->id]);
+                $routeHapus = route('tuberkulosis.destroy', ['id' => $dp->id]);
               } else {
                 $route = '';
               }

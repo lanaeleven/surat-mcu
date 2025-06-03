@@ -10,19 +10,22 @@ use Illuminate\Http\RedirectResponse;
 
 class PasienController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $title = 'DATA PASIEN';
         $pasien = Pasien::orderBy('id', 'desc')->paginate(15);
         return view('pasien.index', compact('title', 'pasien'));
     }
 
-    public function create() {
-        $title ='TAMBAH PASIEN';
+    public function create()
+    {
+        $title = 'TAMBAH PASIEN';
         $readonly = false;
         return view('pasien.form', compact('title', 'readonly'));
     }
 
-    public function store(Request $request): RedirectResponse {
+    public function store(Request $request): RedirectResponse
+    {
         $validatedData = $request->validate([
             'nama' => 'required',
             'noRM' => 'required',
@@ -35,13 +38,15 @@ class PasienController extends Controller
         return redirect()->route('pasien.index')->with('success', "Data Pasien Berhasil Ditambahkan");
     }
 
-    public function edit(Pasien $pasien) {
+    public function edit(Pasien $pasien)
+    {
         $title = 'EDIT PASIEN';
         $readonly = false;
-        return view('pasien.form', compact('title','pasien', 'readonly'));
+        return view('pasien.form', compact('title', 'pasien', 'readonly'));
     }
 
-    public function update(Request $request, Pasien $pasien): RedirectResponse {
+    public function update(Request $request, Pasien $pasien): RedirectResponse
+    {
         $validatedData = $request->validate([
             'nama' => 'required',
             'noRM' => 'required',
@@ -54,12 +59,14 @@ class PasienController extends Controller
         return redirect()->route('pasien.index')->with('success', "Data Pasien Berhasil Disimpan");
     }
 
-    public function audiometri_(Pasien $pasien) {
+    public function audiometri_(Pasien $pasien)
+    {
         $dokter = Dokter::all();
         return view('audiometri', ['pasien' => $pasien, 'title' => 'Hasil Pemeriksaan Audiometri', 'dokter' => $dokter]);
     }
 
-    public function indexSurat(Pasien $pasien) {
+    public function indexSurat(Pasien $pasien)
+    {
         $title = 'BUAT SURAT';
         $audiometriCount = $pasien->audiometri()->count();
         $spirometriCount = $pasien->spirometri()->count();
@@ -71,7 +78,8 @@ class PasienController extends Controller
         $kesehatanBadanCount = $pasien->kesehatanBadan()->count();
         $narkotikaCount = $pasien->narkotika()->count();
         $treadmillCount = $pasien->treadmill()->count();
-        
-        return view('surat-index', compact('title', 'pasien', 'audiometriCount', 'spirometriCount', 'vaksinasiCount', 'giziCount', 'medicalReportCount', 'gigiCount', 'screeningCount', 'kesehatanBadanCount', 'narkotikaCount', 'treadmillCount'));
+        $tuberkulosisCount = $pasien->tuberkulosis()->count();
+
+        return view('surat-index', compact('title', 'pasien', 'audiometriCount', 'spirometriCount', 'vaksinasiCount', 'giziCount', 'medicalReportCount', 'gigiCount', 'screeningCount', 'kesehatanBadanCount', 'narkotikaCount', 'treadmillCount', 'tuberkulosisCount'));
     }
 }

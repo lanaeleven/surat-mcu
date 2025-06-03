@@ -56,4 +56,8 @@ class Dokter extends Model
     public function gigi(): HasMany {
         return $this->hasMany(Gigi::class, 'idDokter');
     }
+
+    public function tuberkulosis(): HasMany {
+        return $this->hasMany(Tuberkulosis::class, 'idDokter');
+    }
 }

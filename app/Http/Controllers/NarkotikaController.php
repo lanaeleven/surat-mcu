@@ -13,7 +13,8 @@ use Illuminate\Http\RedirectResponse;
 
 class NarkotikaController extends Controller
 {
-    public function index(Pasien $pasien) {
+    public function index(Pasien $pasien)
+    {
         $title = 'DATA PEMERIKSAAN NARKOTIKA';
         $jenisPemeriksaan = 'narkotika';
         $routeCreate = route('narkotika.create', ['pasien' => $pasien->id]);
@@ -21,8 +22,9 @@ class NarkotikaController extends Controller
         return view('data-pemeriksaan', compact('title', 'dataPemeriksaan', 'pasien', 'routeCreate', 'jenisPemeriksaan'));
     }
 
-    public function create(Pasien $pasien) {
-        $title ='TAMBAH DATA PEMERIKSAAN NARKOTIKA';
+    public function create(Pasien $pasien)
+    {
+        $title = 'TAMBAH DATA PEMERIKSAAN NARKOTIKA';
         $action = route('narkotika.store');
         $dokter = Dokter::all();
         $readonly = false;
@@ -30,7 +32,8 @@ class NarkotikaController extends Controller
         return view('form-surat.narkotika', compact('title', 'pasien', 'dokter', 'readonly', 'action', 'umur'));
     }
 
-    public function store(Request $request): RedirectResponse {
+    public function store(Request $request): RedirectResponse
+    {
         // dd($request->input());
         $validatedData = $request->validate([
             'idPasien' => 'required',
@@ -55,8 +58,9 @@ class NarkotikaController extends Controller
         return redirect()->route('narkotika.show', ['narkotika' => $narkotika->id])->with('success', "Data Pasien Berhasil Ditambahkan");
     }
 
-    public function show(Narkotika $narkotika) {
-        $title ='DATA PEMERIKSAAN NARKOTIKA';
+    public function show(Narkotika $narkotika)
+    {
+        $title = 'DATA PEMERIKSAAN NARKOTIKA';
         $action = route('narkotika.generate', ['narkotika' => $narkotika->id]);
         $pasien = $narkotika->pasien;
         $umur = Carbon::parse($pasien->tanggalLahir)->age;
@@ -66,7 +70,8 @@ class NarkotikaController extends Controller
         return view('form-surat.narkotika', compact('title', 'narkotika', 'readonly', 'pasien', 'dokter', 'action', 'blank', 'umur'));
     }
 
-    public function edit(Narkotika $narkotika) {
+    public function edit(Narkotika $narkotika)
+    {
         $title = 'EDIT DATA PEMERIKSAAN NARKOTIKA';
         $pasien = $narkotika->pasien;
         $umur = Carbon::parse($pasien->tanggalLahir)->age;
@@ -74,10 +79,11 @@ class NarkotikaController extends Controller
         $readonly = false;
         $dokter = Dokter::all();
         $put = true;
-        return view('form-surat.narkotika', compact('title','narkotika', 'pasien', 'readonly', 'dokter', 'action', 'put', 'umur'));
+        return view('form-surat.narkotika', compact('title', 'narkotika', 'pasien', 'readonly', 'dokter', 'action', 'put', 'umur'));
     }
 
-    public function update(Request $request, Narkotika $narkotika): RedirectResponse {
+    public function update(Request $request, Narkotika $narkotika): RedirectResponse
+    {
         $validatedData = $request->validate([
             'idPasien' => 'required',
             'idDokter' => 'required',
@@ -101,7 +107,8 @@ class NarkotikaController extends Controller
         return redirect()->route('narkotika.show', ['narkotika' => $narkotika->id])->with('success', "Data Pasien Berhasil Diupdate");
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $narkotika = Narkotika::findOrFail($id);
         $idPasien = $narkotika->idPasien;
         $narkotika->delete();
@@ -109,7 +116,8 @@ class NarkotikaController extends Controller
         return redirect()->route('narkotika.index', ['pasien' => $idPasien])->with('success', "Data Pasien Berhasil Dihapus");
     }
 
-    public function generate(Narkotika $narkotika) {
+    public function generate(Narkotika $narkotika)
+    {
 
         // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
         $checkNull = collect($narkotika);
@@ -121,7 +129,7 @@ class NarkotikaController extends Controller
         }
 
         $pasien = Pasien::find($narkotika->idPasien);
-        $dokter = Dokter::find($narkotika->idDokter);  
+        $dokter = Dokter::find($narkotika->idDokter);
         $umur = Carbon::parse($pasien->tanggalLahir)->age;
 
         Carbon::setLocale('id');
@@ -131,14 +139,20 @@ class NarkotikaController extends Controller
         $tanggalHijriyahBulan = $narkotika->bulanHijriyah;
         $tanggalHijriyahTahun = $narkotika->tahunHijriyah;
         list($tanggalPemeriksaanHari, $tanggalPemeriksaanBulan, $tanggalPemeriksaanTahun) = explode(' ', $tanggalPemeriksaan);
-        
-        $pdf = Pdf::loadView('template-surat.narkotika', ['narkotika' => $narkotika, 'pasien' => $pasien, 'dokter' => $dokter, 'umur' => $umur, 'tanggalPemeriksaan' => $tanggalPemeriksaan, 'tanggalLahir' => $tanggalLahir, 
-        'tanggalPemeriksaanHari' => $tanggalPemeriksaanHari, 
-        'tanggalPemeriksaanBulan' => $tanggalPemeriksaanBulan, 
-        'tanggalPemeriksaanTahun' => $tanggalPemeriksaanTahun, 
-        'tanggalHijriyahHari' => $tanggalHijriyahHari,
-        'tanggalHijriyahBulan' => $tanggalHijriyahBulan,
-        'tanggalHijriyahTahun' => $tanggalHijriyahTahun,
+
+        $pdf = Pdf::loadView('template-surat.narkotika', [
+            'narkotika' => $narkotika,
+            'pasien' => $pasien,
+            'dokter' => $dokter,
+            'umur' => $umur,
+            'tanggalPemeriksaan' => $tanggalPemeriksaan,
+            'tanggalLahir' => $tanggalLahir,
+            'tanggalPemeriksaanHari' => $tanggalPemeriksaanHari,
+            'tanggalPemeriksaanBulan' => $tanggalPemeriksaanBulan,
+            'tanggalPemeriksaanTahun' => $tanggalPemeriksaanTahun,
+            'tanggalHijriyahHari' => $tanggalHijriyahHari,
+            'tanggalHijriyahBulan' => $tanggalHijriyahBulan,
+            'tanggalHijriyahTahun' => $tanggalHijriyahTahun,
         ]);
         return $pdf->stream("Surat Keterangan Hasil Pemeriksaan Narkotika " . $pasien->nama . " (" . $pasien->noRM . ").pdf");
     }
