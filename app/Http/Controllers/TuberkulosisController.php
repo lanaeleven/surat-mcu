@@ -111,13 +111,13 @@ class TuberkulosisController extends Controller
 
     public function generate(Tuberkulosis $tuberkulosis)
     {
-
         // Memeriksa apakah data sudah lengkap atau belum sebelum mengenerate surat
-        $checkNull = collect($tuberkulosis);
+        $checkNull = collect($tuberkulosis)->except('keteranganThorax');
         $hasNull = $checkNull->contains(function ($value) {
             return is_null($value);
         });
         if ($hasNull) {
+            // dd($hasNull);
             return redirect()->back()->with('alert', 'Masih ada data yang belum lengkap');
         }
 
