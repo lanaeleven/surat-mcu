@@ -9,7 +9,7 @@
               @auth
               <form action="{{ route('user.logout') }}" method="post">
                 @csrf
-                <input type="image" src="/images/logout.png" class="w-8" alt="" onclick="return confirm('Apakah Anda yakin ingin keluar dari Aplikasi')">
+                <input type="image" src="{{ asset('images/logout.png') }}" class="w-8" alt="" onclick="return confirm('Apakah Anda yakin ingin keluar dari Aplikasi')">
               </form>   
               @endauth
             </div>

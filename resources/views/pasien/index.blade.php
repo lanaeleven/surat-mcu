@@ -13,7 +13,7 @@
   <div class="flex justify-between align-middle">
   <a href="{{ route('dokter.index') }}">
     <div class="flex-none w-10 rounded-lg bg-green-200 hover:bg-green-100 p-1">
-      <img src="/images/doctor.png" alt="">
+      <img src="{{ asset('images/doctor.png') }}" alt="">
     </div>
   </a>
     <div><x-green-link-button href="{{ route('pasien.create') }}">Tambah pasien</x-green-link-button></div>
